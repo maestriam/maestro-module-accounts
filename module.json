@@ -1,0 +1,14 @@
+{
+    "name": "Accounts",
+    "alias": "accounts",
+    "visible": false,
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Maestro\\Accounts\\Services\\Providers\\AccountsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

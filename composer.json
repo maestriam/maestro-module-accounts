@@ -1,0 +1,28 @@
+{
+    "name": "maestro/accounts",
+    "description": "",
+    "authors": [
+        {
+            "name": "Giuliano Sampaio",
+            "email": "giuguitar@gmail.com"
+        }
+    ],
+    "scripts": {
+        "post-autoload-dump": [
+            "php artisan module:enable Accounts"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Maestro\\Accounts\\": ""
+        }
+    }
+}
