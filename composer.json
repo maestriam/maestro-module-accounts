@@ -1,5 +1,6 @@
 {
     "name": "maestro-module/accounts",
+    "type": "maestro-module",
     "description": "",
     "authors": [
         {
