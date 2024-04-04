@@ -11,6 +11,9 @@ use Maestro\Accounts\Services\Foundation\StoreTypeService;
 
 class TypeEntity
 {
+
+    private $entity;
+
     public function __construct(string|object $name = null)
     {
         $this->entity = $name;
@@ -60,7 +63,7 @@ class TypeEntity
      * {@inheritDoc}
      */
     public function create(string|object $name, bool $auth = false) : Type 
-    {
+    {        
         if ($this->find($name)) {
             throw new TypeExistsException($name);
         }

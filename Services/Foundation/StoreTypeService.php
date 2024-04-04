@@ -38,7 +38,8 @@ class StoreTypeService
     }
 
     /**
-     * Extrai um nome para um tipo de conta através de uma classe ou uma string.  
+     * Extrai um nome para um tipo de conta 
+     * através de uma classe ou uma string.  
      *
      * @param string|object $type
      * @return string

@@ -13,9 +13,16 @@ class TypeExistsException extends BaseException
      *
      * @param string $name
      */
-    public function __construct(string $name)
+    public function __construct(string|object $name)
     {
-        $this->initialize();
+        $name = $this->getName($name);
+
+        $this->initialize($name);
+    }
+
+    private function getName(string|object $name) : string 
+    {
+        return (is_string($name)) ? $name : get_class($name);
     }
 
     /**
@@ -23,7 +30,7 @@ class TypeExistsException extends BaseException
      */
     public function getErrorMessage(): string
     {
-        return 'The Type [[%s]] already exists.';
+        return 'The Type [%s] already exists.';
     }
 
     /**
