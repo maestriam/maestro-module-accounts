@@ -2,6 +2,7 @@
 
 return [
     'account' => [
-        'unique' => 'O nome da conta já existe'
+        'available'   => 'Este nome está disponível',
+        'unavailable' => 'O nome da conta já existe'
     ]
 ];

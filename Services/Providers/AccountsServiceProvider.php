@@ -5,8 +5,10 @@ namespace Maestro\Accounts\Services\Providers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 use Maestro\Accounts\Entities\FacadeEntity;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
+use Maestro\Accounts\Views\Components\AccountForm;
 
 class AccountsServiceProvider extends ServiceProvider
 {
@@ -30,10 +32,11 @@ class AccountsServiceProvider extends ServiceProvider
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
+        $this->registerComponents();
         $this->registerSeeds();
         $this->registerFacade();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
         $this->registerRules();
+        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
     /**
@@ -45,6 +48,11 @@ class AccountsServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(FoundationServiceProvider::class);
+    }
+
+    public function registerComponents()
+    {
+        Livewire::component('accounts.account-form', AccountForm::class);            
     }
 
     /**
@@ -148,7 +156,7 @@ class AccountsServiceProvider extends ServiceProvider
     {
         $rule = 'Maestro\Accounts\Http\Rules\UniqueAccount@passes';
         
-        $message = __('accounts::validations.account.unique');
+        $message = __('accounts::validations.unique');
 
         Validator::extend('accounts.unique', $rule, $message);
     }
