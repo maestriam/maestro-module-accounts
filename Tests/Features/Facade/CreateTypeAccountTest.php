@@ -10,7 +10,7 @@ class CreateTypeAccountTest extends TestCase
 {
     public function testCreateAccount()
     {
-        $name = sprintf('App/User%s', time());        
+        $name = sprintf('App/User%s', time());   
         $type = Accounts::type()->create($name);
 
         $this->assertInstanceOf(Type::class, $type);

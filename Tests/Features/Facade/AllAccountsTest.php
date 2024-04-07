@@ -17,10 +17,10 @@ class AllAccountsTest extends TestCase
         $this->assertFalse($accounts->isEmpty());
     }
 
-
     private function createAccounts()
     {
         $name = 'my.f4ke-user';
+
         $user = Users::factory()->model();
 
         Accounts::account()->create($user, $name);

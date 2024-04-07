@@ -16,7 +16,8 @@ class CreateAccountTest extends TestCase
      */
     public function testCreateAccount()
     {  
-        $name = 'my.account';                
+        $name = 'my.account'; 
+                       
         $user = Users::factory()->model();
                 
         $account = Accounts::account()->create($user, $name);

@@ -72,6 +72,11 @@ class AccountEntity
         return $this->search()->info($info);
     }
 
+    public function belongsTo(object $entity, string $name) : bool
+    {
+        return $this->search()->belongsTo($entity, $name);
+    }
+
     /**
      * {@inheritDoc}
      */

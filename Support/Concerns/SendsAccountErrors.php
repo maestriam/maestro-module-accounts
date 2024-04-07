@@ -14,9 +14,9 @@ trait SendsAccountErrors
      * @param string|array $message
      * @return void
      */
-    public function dispatchAccountError(MessageBag $bag) : void
+    public function dispatchAccountError(MessageBag $bag, string $key = 'account') : void
     {
-        $message = $bag->get('account');
+        $message = $bag->get($key);
 
         session(['account.error' => $message[0]]);
     }

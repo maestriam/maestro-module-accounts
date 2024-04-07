@@ -29,7 +29,7 @@ class FindAccountService
     }
 
     /**
-     * Retorna todas as informações da conta de um entidade.
+     * Retorna todas as informações da conta de uma entidade.
      * Caso o nome do tipo da conta não seja passada, irá buscar pelo
      * nome da classe da entidade.  
      *
@@ -47,11 +47,24 @@ class FindAccountService
                              ->with('type')
                              ->get(['accounts.*']); 
 
-        if ($collection->isEmpty()) {
-            return null;
-        }
+        return ($collection->isEmpty()) ? null : $collection->first();
+    }
+
+    /**
+     * Verifica se o nome da conta está vinculada a uma determinada entidade.
+     * Caso não pertença, deve retornar false.  
+     *
+     * @param object $entity
+     * @param string $name
+     * @return boolean
+     */
+    public function belongsTo(object $entity, string $name) : bool
+    {
+        $info = $this->info($entity);
+
+        if ($info == null) return false;        
         
-        return $collection->first();    
+        return ($info->name == $name);
     }
 
     /**
@@ -73,7 +86,7 @@ class FindAccountService
     } 
 
     /**
-     * Pesquisa a conta pelo nome.
+     * Pesquisa os dados da conta através do seu nome.
      *
      * @param string $name
      * @return Account|null

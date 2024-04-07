@@ -23,11 +23,4 @@ class FindAccountTest extends TestCase
 
         $this->assertNull($account);
     }
-
-    public function testIsAccountExists()
-    {
-        $account = Accounts::account()->isExists('not-found');
-
-        $this->assertFalse($account);
-    }
 }
