@@ -4,13 +4,13 @@ namespace Maestro\Accounts\Entities;
 
 use Maestro\Accounts\Database\Models\Type;
 use Illuminate\Database\Eloquent\Collection;
+use Maestro\Accounts\Contracts\AccountFacade;
 use Maestro\Accounts\Database\Models\Account;
-use Maestro\Accounts\Database\Models\Relation;
 use Maestro\Accounts\Services\Foundation\FindAccountService;
 use Maestro\Accounts\Services\Foundation\RelateAccountsService;
 use Maestro\Accounts\Services\Foundation\StoreAccountService;
 
-class AccountEntity
+class AccountEntity implements AccountFacade
 {
     /**
      * {@inheritDoc}
@@ -59,7 +59,7 @@ class AccountEntity
     /**
      * {@inheritDoc}
      */
-    public function isExists(string $name)
+    public function isExists(string $name) : bool
     {
         return $this->search()->isExists($name);
     }
@@ -72,7 +72,8 @@ class AccountEntity
         return $this->search()->info($info);
     }
 
-    public function belongsTo(object $entity, string $name) : bool
+    /** */
+    public function belongsTo(?object $entity, string $name) : bool
     {
         return $this->search()->belongsTo($entity, $name);
     }

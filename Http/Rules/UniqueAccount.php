@@ -1,21 +1,33 @@
 <?php
  
 namespace  Maestro\Accounts\Http\Rules;
- 
+
+use Closure;
+use Illuminate\Contracts\Validation\DataAwareRule;
 use Illuminate\Contracts\Validation\Rule;
 use Maestro\Accounts\Support\Facades\Accounts;
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Validator;
 
-class UniqueAccount implements Rule
+class UniqueAccount
 {    
-    public function passes($attributes, $value)
-    {
-        $ret = Accounts::account()->isExists($value) ? false : true;
+    /**
+     * All of the data under validation.
+     *
+     * @var array<string, mixed>
+     */
+    protected $data = [];
 
-        return $ret;
-    }
-
-    public function message()
+    public function validate(string $attribute, mixed $value, mixed $fail, Validator $validator)
     {
-        return 'The :attribute already exists.';
+        $exits = Accounts::account()->isExists($value);
+
+        if (! $exits) return true;
+
+        $user = $validator->getData()['entity'] ?? null;
+
+        $belongs = Accounts::account()->belongsTo($user, $value);
+
+        return ($belongs == true) ? true : false;
     }
 }

@@ -2,12 +2,13 @@
 
 namespace Maestro\Accounts\Services\Providers;
 
+use Livewire\Livewire;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Livewire\Livewire;
 use Maestro\Accounts\Entities\FacadeEntity;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
+use Maestro\Accounts\Http\Rules\UniqueAccount;
 use Maestro\Accounts\Views\Components\AccountForm;
 
 class AccountsServiceProvider extends ServiceProvider
@@ -154,10 +155,10 @@ class AccountsServiceProvider extends ServiceProvider
     
     private function registerRules()
     {
-        $rule = 'Maestro\Accounts\Http\Rules\UniqueAccount@passes';
+        /*$rule = 'Maestro\Accounts\Http\Rules\UniqueAccount@passes';
         
-        $message = __('accounts::validations.unique');
+        $message = __('accounts::validations.unique');*/
 
-        Validator::extend('accounts.unique', $rule, $message);
+        Validator::extend('accounts.unique', UniqueAccount::class);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace Maestro\Accounts\Entities;
 
+/**
+ * @method static bool belongsTo()
+ */
 class FacadeEntity
 {   
     public function account() : AccountEntity

@@ -8,11 +8,33 @@ use Maestro\Accounts\Support\Facades\Accounts;
 
 class AccountForm extends Component
 {
-    public bool $readOnly = false;
-
+    /**
+     * Nome da conta. 
+     *
+     * @var string
+     */
     #[Modelable] 
     public $account = "";
 
+    /**
+     * Indica se o campo do nome da conta deve ser readonly
+     *
+     * @var boolean
+     */
+    public bool $readOnly = false;
+
+    /**
+     * Objeto com oi
+     *
+     * @var object
+     */
+    public ?object $entity = null;
+
+    /**
+     * Undocumented variable
+     *
+     * @var string
+     */
     private string $keySession = 'account.error';
 
     /**
@@ -26,6 +48,17 @@ class AccountForm extends Component
     }
 
     /**
+     * Retorna se o nome da conta pertence à entidade enviada.  
+     * Em caso de sucesso, deve retornar true.  
+     *
+     * @return boolean
+     */
+    private function belongsToEntity() : bool
+    {
+        return Accounts::account()->belongsTo($this->entity, $this->account);
+    }
+
+    /**
      * Retorna uma mensagem informando se o nome da conta 
      * já está em uso ou não.  
      *
@@ -33,7 +66,9 @@ class AccountForm extends Component
      */
     private function accountMessage() : string {
 
-        if (strlen($this->account) == 0) return "";
+        if ($this->isEmpty() || $this->belongsToEntity()) {
+            return "";
+        }
 
         return $this->accountExists() ? 
             __('accounts::validations.unavailable') :
@@ -100,9 +135,20 @@ class AccountForm extends Component
      */
     private function accountIcon() : string 
     {
-        if (strlen($this->account) == 0) return "";
+        if ($this->isEmpty() || $this->belongsToEntity()) return "";
 
         return $this->accountExists() ? 'fa-times-circle' : 'fa-check-circle'; 
+    }
+
+    /**
+     * Verifica se o campo "nome da conta" está preenchido.  
+     * Em caso de sucesso, deve retornar true.   
+     *
+     * @return boolean
+     */
+    private function isEmpty() : bool 
+    {
+        return (strlen($this->account) == 0);
     }
 
     /**

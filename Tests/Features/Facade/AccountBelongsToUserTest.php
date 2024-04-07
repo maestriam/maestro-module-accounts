@@ -19,4 +19,11 @@ class AccountBelongsToUserTest extends TestCase
 
         $this->assertTrue($belongs);
     }
+
+    public function testBelongsToNullUser()
+    {
+        $belongs = Accounts::account()->belongsTo(null, 'null-user');
+
+        $this->assertFalse($belongs);
+    }
 }

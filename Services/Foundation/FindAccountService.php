@@ -58,8 +58,10 @@ class FindAccountService
      * @param string $name
      * @return boolean
      */
-    public function belongsTo(object $entity, string $name) : bool
+    public function belongsTo(?object $entity, string $name) : bool
     {
+        if ($entity == null) return false;
+
         $info = $this->info($entity);
 
         if ($info == null) return false;        
