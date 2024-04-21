@@ -18,6 +18,8 @@ trait SendsAccountErrors
     {
         $message = $bag->get($key);
 
+        if (empty($message)) return;
+
         session(['account.error' => $message[0]]);
     }
 }

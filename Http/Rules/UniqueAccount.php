@@ -24,9 +24,9 @@ class UniqueAccount
 
         if (! $exits) return true;
 
-        $user = $validator->getData()['entity'] ?? null;
+        $entity = $validator->getData()['entity'] ?? null;
 
-        $belongs = Accounts::account()->belongsTo($user, $value);
+        $belongs = Accounts::account()->belongsTo($entity, $value);
 
         return ($belongs == true) ? true : false;
     }
