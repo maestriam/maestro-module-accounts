@@ -55,7 +55,7 @@ class TestCase extends MainTestCase
     public function accountFactory() : Factory
     {        
         $type = $this->typeFactory()->create();
-        
+
         $factory = Account::factory()->for($type);
 
         return $factory;                          

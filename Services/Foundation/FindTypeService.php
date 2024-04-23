@@ -37,7 +37,7 @@ class FindTypeService
     public function findOrFail(string|int|object $search) : Type
     {
         $type = $this->find($search);
-
+        
         if ($type == null) {
             throw new TypeNotFoundException($search);            
         }

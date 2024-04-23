@@ -5,14 +5,12 @@ namespace Maestro\Accounts\Entities;
 use Maestro\Accounts\Database\Models\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Maestro\Accounts\Exceptions\TypeExistsException;
 use Maestro\Accounts\Services\Foundation\FindTypeService;
 use Maestro\Accounts\Services\Foundation\StoreTypeService;
 
 class TypeEntity
 {
-
-    private $entity;
+    private string|object|null $entity = null;
 
     public function __construct(string|object $name = null)
     {
@@ -63,14 +61,8 @@ class TypeEntity
      * {@inheritDoc}
      */
     public function create(string|object $name, bool $auth = false) : Type 
-    {        
-        if ($this->find($name)) {
-            throw new TypeExistsException($name);
-        }
-
-        $type = new Type();
-
-        return $this->creator()->save($type, $name, $auth);
+    { 
+        return $this->creator()->create($name, $auth);
     }
 
     /**

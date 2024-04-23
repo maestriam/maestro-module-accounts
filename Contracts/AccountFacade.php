@@ -33,4 +33,14 @@ interface AccountFacade
      * @return boolean
      */
     public function belongsTo(?object $entity, string $name) : bool;
+
+    /**
+     * Retorna os dados da conta através do objeto da entidade, 
+     * id da conta ou nome da conta.  
+     * Caso não encontre nenhuma informação, lança um exception. 
+     *
+     * @param string|object|integer $search
+     * @return Account
+     */
+    public function findOrFail(string|object|int $search) : Account;
 }

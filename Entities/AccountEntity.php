@@ -10,20 +10,15 @@ use Maestro\Accounts\Services\Foundation\FindAccountService;
 use Maestro\Accounts\Services\Foundation\RelateAccountsService;
 use Maestro\Accounts\Services\Foundation\StoreAccountService;
 
+
 class AccountEntity implements AccountFacade
 {
     /**
      * {@inheritDoc}
      */
     public function create(object $entity, string $name, string $type = null) : Account
-    {        
-        $account = new Account();       
-
-        $entity->accountName = $name;
-
-        $type = $this->getType($entity, $type);
-        
-        return $this->creator()->save($account, $entity, $type);
+    {                
+        return $this->creator()->create($entity, $name, $type);
     }
 
     /**
@@ -55,12 +50,20 @@ class AccountEntity implements AccountFacade
     {
         return $this->search()->find($search);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findOrFail(string|object|int $search): Account
+    {
+        return $this->search()->findOrFail($search);
+    }
     
     /**
      * {@inheritDoc}
      */
     public function isExists(string $name) : bool
-    {
+    {        
         return $this->search()->isExists($name);
     }
 
@@ -86,51 +89,28 @@ class AccountEntity implements AccountFacade
         return $this->relation()->relate($entity, $to);
     }
 
+    /**
+     * {@inheritDoc}
+     */    
     public function parents(int $child)
     {
         return $this->relation()->parents($child);
     }
 
+    /**
+     * {@inheritDoc}
+     */    
     public function children(int $child)
     {
         return $this->relation()->children($child);
     }
     
     /**
-     *
-     * @param integer $id
-     * @return void
+     * {@inheritDoc}
      */
     public function entity(int $id)
     {
         return $this->relation()->entity($id);
-    }
-
-    /**
-     * Retorna o tipo
-     *
-     * @param object $entity
-     * @param string $type
-     * @return Type
-     */
-    private function getType(object $entity, string $type = null) : Type
-    {
-        if ($type == null) {
-            return $this->type()->findOrCreate($entity);
-        }
-
-        return $this->type()->findOrFail($type);
-    }
-
-    /**
-     * Retorna a entidade com as regras de negócio sobre 
-     * tipo da conta
-     *
-     * @return TypeEntity
-     */
-    private function type() : TypeEntity
-    {
-        return new TypeEntity();
     }
 
     /**

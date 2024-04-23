@@ -4,6 +4,7 @@ namespace Maestro\Accounts\Services\Foundation;
 
 use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Exceptions\AccountNotFoundException;
 
 class FindAccountService
 {
@@ -85,7 +86,24 @@ class FindAccountService
         };
 
         return $account;
-    } 
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string|object|integer $search
+     * @return Account
+     */
+    public function findOrFail(string|object|int $search) : Account
+    {
+        $account = $this->find($search);
+
+        if ($account == null) {
+            return throw new AccountNotFoundException();            
+        }
+
+        return $account;
+    }
 
     /**
      * Pesquisa os dados da conta através do seu nome.
