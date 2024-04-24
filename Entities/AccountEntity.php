@@ -24,6 +24,14 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */
+    public function update(object $entity, string $name, string $type = null) : Account
+    {
+        return $this->creator()->update($entity, $name, $type);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function delete(string|int|object $search) : ?bool
     {
         $account = $this->find($search);
@@ -75,7 +83,9 @@ class AccountEntity implements AccountFacade
         return $this->search()->info($info);
     }
 
-    /** */
+    /**
+     * {@inheritDoc}
+     */
     public function belongsTo(?object $entity, string $name) : bool
     {
         return $this->search()->belongsTo($entity, $name);

@@ -5,6 +5,7 @@ namespace Maestro\Accounts\Services\Foundation;
 use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Database\Models\Account;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
+use Maestro\Accounts\Exceptions\UnavailableAccountException;
 
 class FindAccountService
 {
@@ -16,6 +17,23 @@ class FindAccountService
     public function all() : Collection
     {
         return Account::all();
+    }
+
+    /**
+     * Verifica se o nome da conta existe.   
+     * Se existir, deve lançar um exception informando que o 
+     * nome da conta não está disponível. 
+     *
+     * @param string $name
+     * @return void
+     */
+    public function notExistsOrFail(string $name)
+    {
+        if ($this->isExists($name)) {
+            return throw new UnavailableAccountException();
+        }
+
+        return true;
     }
 
     /**

@@ -8,6 +8,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Maestro\Accounts\Database\Models\Type;
 use Maestro\Accounts\Database\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Tests\Mocks\UserMock;
 
 class TestCase extends MainTestCase
 {  
@@ -33,7 +35,23 @@ class TestCase extends MainTestCase
     {
         $this->finish();
         parent::tearDown();
-    }    
+    }
+
+    /**
+     * Retorna um objeto de entidade fictício com dados de uma conta
+     *
+     * @return UserMock
+     */
+    public function makeEntityWithAccount() : UserMock
+    {
+        $entity = new UserMock();
+
+        $name = $this->faker()->userName();
+
+        Accounts::account()->create($entity, $name);
+
+        return $entity;
+    }
 
     /**
      * Retorna os dados fakes de um tipo de conta para ser utilizado 

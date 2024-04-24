@@ -17,6 +17,16 @@ interface AccountFacade
     public function create(object $entity, string $name, string $type = null) : Account;
 
     /**
+     * Atualiza o nome da conta da entidade, de acordo com o tipo específico.  
+     *
+     * @param Account $account
+     * @param object $entity
+     * @param Type $type
+     * @return Account
+     */
+    public function update(object $entity, string $name, string $type = null) : Account;
+
+    /**
      * Verifica se o nome da conta já existe na base de dados
      *
      * @param string $name

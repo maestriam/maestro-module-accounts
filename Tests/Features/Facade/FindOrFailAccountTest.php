@@ -3,10 +3,10 @@
 namespace Maestro\Accounts\Tests\Features\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Accounts\Database\Models\Account;
-use Maestro\Accounts\Exceptions\AccountNotFoundException;
-use Maestro\Accounts\Support\Facades\Accounts;
 use Maestro\Accounts\Tests\Mocks\UserMock;
+use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Exceptions\AccountNotFoundException;
 
 class FindOrFailAccountTest extends TestCase
 {
@@ -49,7 +49,7 @@ class FindOrFailAccountTest extends TestCase
     private function assertFoundIsSuccess($found, $account)
     {
         $this->assertInstanceOf(Account::class, $found);
-        
+
         $this->assertEquals($account->name, $found->name);
     }
 }

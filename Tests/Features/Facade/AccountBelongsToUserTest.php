@@ -10,10 +10,9 @@ class AccountBelongsToUserTest extends TestCase
 {
     public function testBelongsTo()
     {
-        $user = Users::factory()->model();        
+        $user = $this->makeEntityWithAccount();
+        
         $name = $user->account()->name;
-
-        Accounts::account()->create($user, $name);
         
         $belongs = Accounts::account()->belongsTo($user, $name);
 
