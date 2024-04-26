@@ -12,7 +12,7 @@ class RelateAccountsService
     {
         $relation = new Relation();
 
-        $relation->child_id = $child->account()->id;        
+        $relation->child_id  = $child->account()->id;  
         $relation->parent_id = $parent->account()->id;
 
         return $relation->save();

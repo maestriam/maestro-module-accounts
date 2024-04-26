@@ -2,7 +2,6 @@
 
 namespace Maestro\Accounts\Entities;
 
-use Maestro\Accounts\Database\Models\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Contracts\AccountFacade;
 use Maestro\Accounts\Database\Models\Account;

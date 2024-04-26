@@ -53,4 +53,13 @@ interface AccountFacade
      * @return Account
      */
     public function findOrFail(string|object|int $search) : Account;
+
+    /**
+     * Cria uma relação de chave pai e filho entre duas entidades 
+     *
+     * @param object $child
+     * @param object $parent
+     * @return boolean
+     */
+    public function relate(object $child, object $parent) : bool;
 }
