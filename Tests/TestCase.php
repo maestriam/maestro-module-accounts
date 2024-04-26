@@ -9,11 +9,12 @@ use Maestro\Accounts\Database\Models\Type;
 use Maestro\Accounts\Database\Models\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Support\Facades\Accounts;
-use Maestro\Accounts\Tests\Mocks\UserMock;
+use Maestro\Accounts\Tests\Mocks\EntityMOck;
+use Maestro\Users\Support\Concerns\WithUserFactory;
 
 class TestCase extends MainTestCase
 {  
-    use WithFaker;
+    use WithFaker, WithUserFactory;
 
     /**
      * Ao iniciar os testes...
@@ -23,7 +24,8 @@ class TestCase extends MainTestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->start()->initSession();
+        $this->start();
+        $this->initSession();
     }
     
     /**
@@ -40,11 +42,11 @@ class TestCase extends MainTestCase
     /**
      * Retorna um objeto de entidade fictício com dados de uma conta
      *
-     * @return UserMock
+     * @return EntityMOck
      */
-    public function makeEntityWithAccount() : UserMock
+    public function makeEntityWithAccount() : EntityMOck
     {
-        $entity = new UserMock();
+        $entity = new EntityMOck();
 
         $name = $this->faker()->userName();
 

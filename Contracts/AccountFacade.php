@@ -62,4 +62,13 @@ interface AccountFacade
      * @return boolean
      */
     public function relate(object $child, object $parent) : bool;
+
+    /**
+     * Retorna a relação de todas as entidades onde 
+     * a conta da entidade está inserida.
+     *
+     * @param integer $child
+     * @return array
+     */
+    public function parents(int $child) : array;
 }

@@ -101,7 +101,7 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */    
-    public function parents(int $child)
+    public function parents(int $child) : array
     {
         return $this->relation()->parents($child);
     }

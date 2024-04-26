@@ -10,15 +10,24 @@ class RelateAccountsTest extends TestCase
 {
     public function testRelateAccounts()
     {
-        $user1 = Users::factory()->model();
-        $user2 = Users::factory()->model();
+        $user1 = $this->makeEntityWithAccount();
+        $user2 = $this->makeEntityWithAccount();
 
-        Accounts::account()->create($user1, 'my.user.1');
-        Accounts::account()->create($user2, 'company.id');
+        $response = Accounts::account()->relate($user1, $user2);
 
-        $ret = Accounts::account()->relate($user1, $user2);
+        $this->assertTrue($response);
+    }
 
-        $this->assertIsBool($ret);
-        $this->assertTrue($ret);
+    public function testDuplicateRelations()
+    {
+        $child  = $this->makeEntityWithAccount();
+        $parent = $this->makeEntityWithAccount();
+
+        Accounts::account()->relate($child, $parent);
+        Accounts::account()->relate($child, $parent);
+                
+        $relations = Accounts::account()->parents($child->account()->id);
+
+        $this->assertEquals(1, count($relations));  
     }
 }

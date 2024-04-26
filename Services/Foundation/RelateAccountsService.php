@@ -10,12 +10,12 @@ class RelateAccountsService
 {
     public function relate(object $child, object $parent) : bool
     {
-        $relation = new Relation();
+        Relation::updateOrCreate(
+            ['child_id' =>  $child->account()->id],
+            ['parent_id' => $parent->account()->id]
+        );
 
-        $relation->child_id  = $child->account()->id;  
-        $relation->parent_id = $parent->account()->id;
-
-        return $relation->save();
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class RelateAccountsService
      * a conta da entidade está inserida.
      *
      * @param integer $child
-     * @return void
+     * @return array
      */
     public function parents(int $child) : array
     {
