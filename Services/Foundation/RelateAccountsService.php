@@ -2,7 +2,7 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Maestro\Accounts\Database\Models\Account;
 use Maestro\Accounts\Database\Models\Relation;
 
@@ -18,18 +18,28 @@ class RelateAccountsService
         return true;
     }
 
+    public function unrelate(object $child, object $parent) : bool
+    {
+        Relation::where(
+            ['child_id' =>  $child->account()->id],
+            ['parent_id' => $parent->account()->id]
+        )->delete();
+
+        return true;
+    }
+
     /**
      * Retorna a relação de todas as entidades, onde 
      * a conta da entidade está inserida.
      *
      * @param integer $child
-     * @return array
+     * @return Collection
      */
-    public function parents(int $child) : array
+    public function parents(int $child) : Collection
     {
         $collection = $this->getParentsCollection($child);
 
-        return $this->getEntityCollection($collection, 'parent_id');
+        return $this->getEntityCollection($collection, 'parent');
     }
 
     /**
@@ -37,16 +47,16 @@ class RelateAccountsService
      * a conta da entidade possui em seu inventário
      *
      * @param integer $parent
-     * @return void
+     * @return Collection
      */
-    public function children(int $parent)
+    public function children(int $parent) : Collection
     {
         $collection = $this->getChildrenCollection($parent);
 
-        return $this->getEntityCollection($collection, 'child_id');
+        return $this->getEntityCollection($collection, 'child');
     }
 
-    private function getEntityCollection($collection, string $key) : array
+    private function getEntityCollection($collection, string $key) : Collection
     {
         $entities = [];
 
@@ -57,18 +67,20 @@ class RelateAccountsService
             $entities[] = $entity;
         }
 
-        return $entities;
+        return collect($entities);
     }
 
     /**
-     * Retorna a entidade da conta de acordo com o seu ID. 
+     * Retorna a entidade da conta de acordo com a sua conta. 
      *
      * @param integer $id
      * @return void
      */
-    public function entity(int $id)
+    public function entity(Account|int $account)
     {
-        $account = Account::find($id);
+        if (is_int($account)) {
+            $account = Account::find($account);
+        }
 
         $class = app()->make($account->type->name);
 

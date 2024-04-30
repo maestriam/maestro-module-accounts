@@ -3,10 +3,10 @@
 namespace Maestro\Accounts\Tests\Features\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Accounts\Tests\Mocks\UserMock;
 use Maestro\Accounts\Database\Models\Account;
 use Maestro\Accounts\Support\Facades\Accounts;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
+use Maestro\Accounts\Tests\Mocks\EntityMock;
 
 class FindOrFailAccountTest extends TestCase
 {
@@ -30,7 +30,7 @@ class FindOrFailAccountTest extends TestCase
 
     public function testFindOrFailByEntity()
     {
-        $user = new UserMock();
+        $user = new EntityMock();
 
         $account = Accounts::account()->create($user, 'account-name');
 

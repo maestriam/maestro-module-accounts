@@ -2,7 +2,7 @@
 
 namespace Maestro\Accounts\Entities;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Maestro\Accounts\Contracts\AccountFacade;
 use Maestro\Accounts\Database\Models\Account;
 use Maestro\Accounts\Services\Foundation\FindAccountService;
@@ -98,10 +98,15 @@ class AccountEntity implements AccountFacade
         return $this->relation()->relate($entity, $to);
     }
 
+    public function unrelate(object $child, object $parent): bool
+    {
+        return $this->relation()->unrelate($child, $parent);
+    }
+
     /**
      * {@inheritDoc}
      */    
-    public function parents(int $child) : array
+    public function parents(int $child) : Collection
     {
         return $this->relation()->parents($child);
     }
@@ -109,7 +114,7 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */    
-    public function children(int $child)
+    public function children(int $child) : Collection
     {
         return $this->relation()->children($child);
     }
@@ -117,9 +122,9 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */
-    public function entity(int $id)
+    public function entity(Account|int $account)
     {
-        return $this->relation()->entity($id);
+        return $this->relation()->entity($account);
     }
 
     /**

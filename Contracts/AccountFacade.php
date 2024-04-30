@@ -2,6 +2,7 @@
 
 namespace Maestro\Accounts\Contracts;
 
+use Illuminate\Support\Collection;
 use Maestro\Accounts\Database\Models\Account as Account;
 
 interface AccountFacade
@@ -55,7 +56,7 @@ interface AccountFacade
     public function findOrFail(string|object|int $search) : Account;
 
     /**
-     * Cria uma relação de chave pai e filho entre duas entidades 
+     * Cria um vínculo de chave pai e filho entre duas entidades 
      *
      * @param object $child
      * @param object $parent
@@ -64,11 +65,29 @@ interface AccountFacade
     public function relate(object $child, object $parent) : bool;
 
     /**
+     * Remove um vínculo de chave pai e filho entre duas entidades. 
+     *
+     * @param object $child
+     * @param object $parent
+     * @return boolean
+     */
+    public function unrelate(object $child, object $parent) : bool;
+
+    /**
      * Retorna a relação de todas as entidades onde 
      * a conta da entidade está inserida.
      *
      * @param integer $child
-     * @return array
+     * @return Collection
      */
-    public function parents(int $child) : array;
+    public function parents(int $child) : Collection;
+
+    /**
+     * Retorna a lista de todas as entidades que 
+     * possui vinculo com essa conta.
+     *
+     * @param integer $child
+     * @return Collection
+     */
+    public function children(int $child) : Collection;
 }
