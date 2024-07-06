@@ -74,9 +74,9 @@ class RelateAccountsService
      * Retorna a entidade da conta de acordo com a sua conta. 
      *
      * @param integer $id
-     * @return void
+     * @return mixed
      */
-    public function entity(Account|int $account)
+    public function entity(Account|int $account) : mixed
     {
         if (is_int($account)) {
             $account = Account::find($account);

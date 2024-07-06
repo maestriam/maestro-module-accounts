@@ -90,4 +90,12 @@ interface AccountFacade
      * @return Collection
      */
     public function children(int $child) : Collection;
+
+    /**
+     * Retorna a entidade relaciona a conta
+     *
+     * @param Account|integer $account
+     * @return mixed
+     */
+    public function entity(Account|int $account);
 }

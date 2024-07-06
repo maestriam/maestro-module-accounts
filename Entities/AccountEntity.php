@@ -122,7 +122,7 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */
-    public function entity(Account|int $account)
+    public function entity(Account|int $account) : mixed
     {
         return $this->relation()->entity($account);
     }
