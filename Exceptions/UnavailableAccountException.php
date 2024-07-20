@@ -15,11 +15,11 @@ class UnavailableAccountException extends BaseException
 
     public function getErrorCode(): string
     {
-        return '';
+        return self::CODE;
     }
 
     public function getErrorMessage(): string
     {
-        return self::CODE;
+        return 'Account no available';
     }
 }
