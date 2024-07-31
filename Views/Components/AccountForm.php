@@ -2,6 +2,7 @@
 
 namespace Maestro\Accounts\Views\Components;
 
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\Attributes\Modelable;
 use Maestro\Accounts\Support\Facades\Accounts;
@@ -64,7 +65,7 @@ class AccountForm extends Component
      *
      * @return string
      */
-    private function accountMessage() : string {
+    protected function accountMessage() : string {
 
         if ($this->isEmpty() || $this->belongsToEntity()) {
             return "";
@@ -81,13 +82,13 @@ class AccountForm extends Component
      *
      * @return string|null
      */
-    private function getAccountError() : ?string 
+    protected function getAccountError() : ?string 
     {
         if (! $this->hasError()) return null;
 
         $message = session($this->keySession);
 
-        session()->forget($this->keySession);
+        Session::forget($this->keySession);
 
         return $message;
     }
@@ -110,7 +111,7 @@ class AccountForm extends Component
      *
      * @return string|null
      */
-    private function getErrorStyleInput() : ?string 
+    protected function getErrorStyleInput() : ?string 
     {
         $class  = 'form-control ';
         $class .= ($this->hasError()) ? 'is-invalid' : '';
@@ -123,7 +124,7 @@ class AccountForm extends Component
      *
      * @return string
      */
-    private function accountStyle() : string 
+    protected function accountStyle() : string 
     {
         return $this->accountExists() ? 'text-danger' : 'text-success';
     }
@@ -133,9 +134,9 @@ class AccountForm extends Component
      *
      * @return string
      */
-    private function accountIcon() : string 
+    protected function accountIcon() : string 
     {
-        if ($this->isEmpty() || $this->belongsToEntity()) return "";
+        if ($this->isEmpty() || $this->belongsToEntity()) return '';
 
         return $this->accountExists() ? 'fa-times-circle' : 'fa-check-circle'; 
     }
