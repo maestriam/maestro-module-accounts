@@ -5,7 +5,7 @@ namespace Maestro\Accounts\Tests\Features\Facade;
 use Maestro\Accounts\Database\Models\Account;
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Support\Facades\Accounts;
-use Maestro\Users\Support\Facade\Users;
+use Maestro\Users\Support\Users;
 
 class CreateAccountTest extends TestCase
 {

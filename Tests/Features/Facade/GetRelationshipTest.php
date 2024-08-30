@@ -5,8 +5,8 @@ namespace Maestro\Accounts\Tests\Features\Facade;
 use Maestro\Accounts\Database\Models\Relation;
 use Maestro\Accounts\Support\Facades\Accounts;
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Companies\Support\Facade\Companies;
-use Maestro\Users\Support\Facade\Users;
+use Maestro\Companies\Support\Companies;
+use Maestro\Users\Support\Users;
 
 class GetRelationshipTest extends TestCase
 {

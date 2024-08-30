@@ -9,7 +9,7 @@ class Relation extends Model
     protected $table = 'account_relations';
 
     protected $fillable = [
-        'child_id', 'parent_id'
+        'child_id', 'parent_id', 
     ];
 
     public function parent()

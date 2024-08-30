@@ -11,6 +11,10 @@ class Type extends Model
     use HasFactory;
 
     protected $table = 'account_types';
+
+    protected $fillable = [
+        'name', 'auth'
+    ];
     
     protected static function newFactory()
     {
