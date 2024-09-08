@@ -1,7 +1,7 @@
 <?php
 namespace Maestro\Accounts\Database\Factories;
 
-use Maestro\Accounts\Database\Models\Type;
+use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TypeFactory extends Factory

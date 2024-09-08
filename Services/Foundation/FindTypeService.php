@@ -3,7 +3,7 @@
 namespace Maestro\Accounts\Services\Foundation;
 
 use Illuminate\Database\Eloquent\Collection;
-use Maestro\Accounts\Database\Models\Type;
+use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Exceptions\TypeNotFoundException;
 
 class FindTypeService

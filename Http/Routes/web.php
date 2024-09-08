@@ -13,7 +13,3 @@ use Maestro\Accounts\Http\Controllers\AccountsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('accounts')->group(function() {
-    Route::get('/', 'AccountsController@index');
-});

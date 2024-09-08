@@ -2,12 +2,12 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
-use Maestro\Accounts\Database\Models\Type;
+use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Exceptions\TypeExistsException;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
-class StoreTypeService
+class TypeCreator
 {
     use SearchesTypes;
 
@@ -16,7 +16,7 @@ class StoreTypeService
      */
     public function create(string|object $name, bool $auth = false) : Type 
     {        
-        if ($this->typeFinder()->find($name)) {
+        if ($this->search()->find($name)) {
             throw new TypeExistsException($name);
         }
 
@@ -30,7 +30,7 @@ class StoreTypeService
      */
     public function findOrCreate(string|object $name, bool $auth = false) : Type
     {
-        $type = $this->typeFinder()->find($name);
+        $type = $this->search()->find($name);
 
         return (! $type) ? $this->create($name, $auth) : $type;
     }

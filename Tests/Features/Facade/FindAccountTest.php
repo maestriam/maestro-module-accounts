@@ -3,7 +3,7 @@
 namespace Maestro\Accounts\Tests\Features\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Support\Accounts;
 
 class FindAccountTest extends TestCase
 {

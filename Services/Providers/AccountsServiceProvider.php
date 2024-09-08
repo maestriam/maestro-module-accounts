@@ -6,9 +6,9 @@ use Livewire\Livewire;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
-use Maestro\Accounts\Entities\FacadeEntity;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
 use Maestro\Accounts\Http\Rules\UniqueAccount;
+use Maestro\Accounts\Support\Facades\AccountFacade;
 use Maestro\Accounts\Views\Components\AccountForm;
 
 class AccountsServiceProvider extends ServiceProvider
@@ -116,7 +116,7 @@ class AccountsServiceProvider extends ServiceProvider
     protected function registerFacade() : self
     {
         $this->app->bind('accounts',function() {
-            return new FacadeEntity();
+            return new AccountFacade();
         });   
         
         return $this;

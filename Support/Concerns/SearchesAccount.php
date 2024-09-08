@@ -6,7 +6,7 @@ use Maestro\Accounts\Services\Foundation\FindAccountService;
 
 trait SearchesAccount
 {
-    public function accountFinder() : FindAccountService
+    public function finder() : FindAccountService
     {
         return app()->make(FindAccountService::class);
     }

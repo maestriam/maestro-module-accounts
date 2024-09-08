@@ -2,9 +2,9 @@
 
 namespace Maestro\Accounts\Tests\Features\Facade;
 
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Support\Accounts;
 use Maestro\Users\Support\Users;
 
 class CreateAccountTest extends TestCase

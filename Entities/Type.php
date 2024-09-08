@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Database\Models;
+namespace Maestro\Accounts\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Maestro\Accounts\Database\Factories\TypeFactory;

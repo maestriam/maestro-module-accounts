@@ -1,17 +1,20 @@
 <?php
 
-namespace Maestro\Accounts\Entities;
+namespace Maestro\Accounts\Services\Foundation;
 
-use Illuminate\Support\Collection;
-use Maestro\Accounts\Contracts\AccountFacade;
-use Maestro\Accounts\Database\Models\Account;
-use Maestro\Accounts\Services\Foundation\FindAccountService;
-use Maestro\Accounts\Services\Foundation\RelateAccountsService;
-use Maestro\Accounts\Services\Foundation\StoreAccountService;
+use Maestro\Accounts\Entities\Account;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
+use Maestro\Accounts\Support\Concerns\CreatesAccounts;
+use Maestro\Accounts\Support\Concerns\SearchesAccount;
+use Maestro\Accounts\Support\Concerns\AccountRelationship;
 
-
-class AccountEntity implements AccountFacade
+class AccountHandler
 {
+    use CreatesAccounts, 
+        SearchesAccount, 
+        AccountRelationship;
+
     /**
      * {@inheritDoc}
      */
@@ -47,7 +50,7 @@ class AccountEntity implements AccountFacade
      */
     public function all() : Collection
     {
-        return $this->search()->all();
+        return $this->finder()->all();
     }
 
     /**
@@ -55,7 +58,7 @@ class AccountEntity implements AccountFacade
      */
     public function find(string|int|object $search) : ?Account
     {
-        return $this->search()->find($search);
+        return $this->finder()->find($search);
     }
 
     /**
@@ -63,7 +66,7 @@ class AccountEntity implements AccountFacade
      */
     public function findOrFail(string|object|int $search): Account
     {
-        return $this->search()->findOrFail($search);
+        return $this->finder()->findOrFail($search);
     }
     
     /**
@@ -71,7 +74,7 @@ class AccountEntity implements AccountFacade
      */
     public function isExists(string $name) : bool
     {        
-        return $this->search()->isExists($name);
+        return $this->finder()->isExists($name);
     }
 
     /**
@@ -79,7 +82,7 @@ class AccountEntity implements AccountFacade
      */
     public function info(object $info)
     {
-        return $this->search()->info($info);
+        return $this->finder()->info($info);
     }
 
     /**
@@ -87,7 +90,7 @@ class AccountEntity implements AccountFacade
      */
     public function belongsTo(?object $entity, string $name) : bool
     {
-        return $this->search()->belongsTo($entity, $name);
+        return $this->finder()->belongsTo($entity, $name);
     }
 
     /**
@@ -106,7 +109,7 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */    
-    public function parents(int $child) : Collection
+    public function parents(int $child) : SupportCollection
     {
         return $this->relation()->parents($child);
     }
@@ -114,7 +117,7 @@ class AccountEntity implements AccountFacade
     /**
      * {@inheritDoc}
      */    
-    public function children(int $child) : Collection
+    public function children(int $child) : SupportCollection
     {
         return $this->relation()->children($child);
     }
@@ -125,35 +128,5 @@ class AccountEntity implements AccountFacade
     public function entity(Account|int $account) : mixed
     {
         return $this->relation()->entity($account);
-    }
-
-    /**
-     * Retorna o serviço para persistência de dados da conta
-     *
-     * @return StoreAccountService
-     */
-    private function creator() : StoreAccountService
-    {
-        return app()->make(StoreAccountService::class);
-    }
-
-    /**
-     * Retorna o serviço para consulta de dados da conta
-     *
-     * @return FindAccountService
-     */
-    private function search() : FindAccountService
-    {
-        return app()->make(FindAccountService::class);
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @return RelateAccountsService
-     */
-    private function relation() : RelateAccountsService
-    {
-        return app(RelateAccountsService::class);
-    }
+    }        
 }

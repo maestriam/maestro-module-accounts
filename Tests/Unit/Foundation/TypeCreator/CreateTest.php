@@ -1,14 +1,17 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Unit\Entities\Type;
+namespace Maestro\Accounts\Tests\Unit\Foundation\TypeCreator;
 
 use App\Models\User;
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Entities\TypeEntity;
-use Maestro\Accounts\Database\Models\Type;
+use Maestro\Accounts\Entities\Type;
+use Maestro\Accounts\Support\Concerns\CreatesTypes;
 
-class CreateTypeTest extends TestCase
+class CreateTest extends TestCase
 { 
+    use CreatesTypes;
+
     /*public function testCreateByName()
     {
         $entity = new TypeEntity();
@@ -21,10 +24,9 @@ class CreateTypeTest extends TestCase
 
     public function testCreateByObject()
     {
-        $entity = new TypeEntity();
         $object = new User();
         
-        $type = $entity->create($object);
+        $type = $this->creator()->create($object);
 
         $this->assertInstanceOf(Type::class, $type); 
     }

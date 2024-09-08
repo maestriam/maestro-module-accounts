@@ -1,12 +1,12 @@
 <?php
 
-namespace Maestro\Accounts\Support\Facades;
+namespace Maestro\Accounts\Support;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Maestro\Accounts\Contracts\AccountFacade account()
- * @method static \Maestro\Accounts\Contracts\Type type()
+ * @method static \Maestro\Accounts\Services\Foundation\AccountHandler account()
+ * @method static \Maestro\Accounts\Services\Foundation\TypeHandler type()
  */
 class Accounts extends Facade
 {

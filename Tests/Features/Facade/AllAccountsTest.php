@@ -4,7 +4,7 @@ namespace Maestro\Accounts\Tests\Features\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Users\Support\Users;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Support\Accounts;
 
 class AllAccountsTest extends TestCase
 {

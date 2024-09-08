@@ -2,9 +2,10 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
-use Illuminate\Support\Collection;
-use Maestro\Accounts\Database\Models\Account;
-use Maestro\Accounts\Database\Models\Relation;
+use Maestro\Accounts\Entities\Account;
+use Maestro\Accounts\Entities\Relation;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 class RelateAccountsService
 {
@@ -33,9 +34,9 @@ class RelateAccountsService
      * a conta da entidade está inserida.
      *
      * @param integer $child
-     * @return Collection
+     * @return SupportCollection
      */
-    public function parents(int $child) : Collection
+    public function parents(int $child) : SupportCollection
     {
         $collection = $this->getParentsCollection($child);
 
@@ -47,16 +48,16 @@ class RelateAccountsService
      * a conta da entidade possui em seu inventário
      *
      * @param integer $parent
-     * @return Collection
+     * @return SupportCollection
      */
-    public function children(int $parent) : Collection
+    public function children(int $parent) : SupportCollection
     {
         $collection = $this->getChildrenCollection($parent);
 
         return $this->getEntityCollection($collection, 'child');
     }
 
-    private function getEntityCollection($collection, string $key) : Collection
+    private function getEntityCollection($collection, string $key) : SupportCollection
     {
         $entities = [];
 

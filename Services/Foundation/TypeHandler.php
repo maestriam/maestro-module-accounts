@@ -1,15 +1,18 @@
 <?php
 
-namespace Maestro\Accounts\Entities;
+namespace Maestro\Accounts\Services\Foundation;
 
-use Maestro\Accounts\Database\Models\Type;
+use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Maestro\Accounts\Services\Foundation\FindTypeService;
-use Maestro\Accounts\Services\Foundation\StoreTypeService;
+use Maestro\Accounts\Support\Concerns\CreatesTypes;
+use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
-class TypeEntity
+class TypeHandler
 {
+    use CreatesTypes, 
+        SearchesTypes;
+
     private string|object|null $entity = null;
 
     public function __construct(string|object $name = null)
@@ -73,27 +76,5 @@ class TypeEntity
         $type = $this->find($name);
 
         return (! $type) ? $this->create($name, $auth) : $type;
-    }
-
-    /**
-     * Retorna a instância com as RN's sobre 
-     * a persistência de tipo de contas.
-     *
-     * @return StoreTypeService
-     */
-    private function creator() : StoreTypeService
-    {
-        return app()->make(StoreTypeService::class);
-    }
-
-    /**
-     * Retorna a instância com as RN's sobre 
-     * a pesquisa de tipo de contas.
-     *
-     * @return FindTypeService
-     */
-    private function search() : FindTypeService
-    {
-        return app()->make(FindTypeService::class);
     }
 }

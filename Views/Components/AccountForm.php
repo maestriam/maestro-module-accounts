@@ -5,7 +5,7 @@ namespace Maestro\Accounts\Views\Components;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\Attributes\Modelable;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Support\Accounts;
 
 class AccountForm extends Component
 {

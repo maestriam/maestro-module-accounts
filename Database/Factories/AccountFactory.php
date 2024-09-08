@@ -2,7 +2,7 @@
 namespace Maestro\Accounts\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Account;
 
 class AccountFactory extends Factory
 {

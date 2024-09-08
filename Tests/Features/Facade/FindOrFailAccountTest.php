@@ -3,8 +3,8 @@
 namespace Maestro\Accounts\Tests\Features\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
-use Maestro\Accounts\Database\Models\Account;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Entities\Account;
+use Maestro\Accounts\Support\Accounts;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
 use Maestro\Accounts\Tests\Mocks\EntityMock;
 

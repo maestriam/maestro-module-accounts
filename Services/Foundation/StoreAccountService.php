@@ -2,17 +2,17 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
-use Maestro\Accounts\Database\Models\Type;
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Type;
+use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Support\Concerns\StoresTypes;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 use Maestro\Accounts\Support\Concerns\SearchesAccount;
 use Maestro\Accounts\Exceptions\AccountModelNotAllowedException;
+use Maestro\Accounts\Support\Concerns\HandlesTypes;
 
 class StoreAccountService
 {    
-    use SearchesTypes,
-        StoresTypes,
+    use HandlesTypes,
         SearchesAccount;
 
     /**
@@ -41,7 +41,7 @@ class StoreAccountService
     {            
         $this->guard($entity, $name);
 
-        $account = $this->accountFinder()->findOrFail($entity);
+        $account = $this->finder()->findOrFail($entity);
 
         return $this->save($name, $account, $entity, $account->type);
     }
@@ -57,7 +57,7 @@ class StoreAccountService
      */
     public function guard(object $entity, string $name) : bool
     {            
-        $this->accountFinder()->notExistsOrFail($name);
+        $this->finder()->notExistsOrFail($name);
 
         if ($this->isAccountModel($entity)) {
             return throw new AccountModelNotAllowedException();
@@ -87,10 +87,10 @@ class StoreAccountService
     private function getType(object $entity, string $type = null) : Type
     {
         if ($type == null) {
-            return $this->typeCreator()->findOrCreate($entity);
+            return $this->type()->findOrCreate($entity);
         }
 
-        return $this->typeFinder()->findOrFail($type);
+        return $this->type()->findOrFail($type);
     }
 
     /**

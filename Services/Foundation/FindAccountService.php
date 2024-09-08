@@ -3,7 +3,7 @@
 namespace Maestro\Accounts\Services\Foundation;
 
 use Illuminate\Database\Eloquent\Collection;
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
 use Maestro\Accounts\Exceptions\UnavailableAccountException;
 

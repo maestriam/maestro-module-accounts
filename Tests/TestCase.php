@@ -3,12 +3,11 @@
 namespace Maestro\Accounts\Tests;
 
 use Maestro\Admin\Tests\TestCase as MainTestCase;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\WithFaker;
-use Maestro\Accounts\Database\Models\Type;
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Type;
+use Maestro\Accounts\Entities\Account;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Maestro\Accounts\Support\Facades\Accounts;
+use Maestro\Accounts\Support\Accounts;
 use Maestro\Accounts\Tests\Mocks\EntityMOck;
 use Maestro\Users\Support\Concerns\WithUserFactory;
 

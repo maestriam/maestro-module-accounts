@@ -3,7 +3,7 @@
 namespace Maestro\Accounts\Contracts;
 
 use Illuminate\Support\Collection;
-use Maestro\Accounts\Database\Models\Account as Account;
+use Maestro\Accounts\Entities\Account as Account;
 
 interface AccountFacade
 {

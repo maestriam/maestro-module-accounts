@@ -2,7 +2,7 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Database\Models\Account;
+use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Services\Foundation\FindAccountService;
 
 /**
