@@ -3,15 +3,27 @@ namespace Maestro\Accounts\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Entities\Account;
+use Maestro\Accounts\Support\Concerns\CreatesAccounts;
+use Maestro\Accounts\Support\Concerns\CreatesTypes;
+use Maestro\Accounts\Tests\Mocks\Entity;
 
 class AccountFactory extends Factory
 {
+    use CreatesAccounts;
+
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
     protected $model = Account::class;
+
+    public function model() : Account
+    {
+        list($entity, $name) = array_values($this->definition());
+        
+        return $this->creator()->create($entity, $name);
+    }
 
     /**
      * Define the model's default state.
@@ -21,8 +33,8 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            'name'       => $this->faker->username(),
-            'entity_id'  => $this->faker->randomDigit()
+            'entity' => new Entity(),
+            'name'   => $this->faker->username(),
         ];
     }
 }

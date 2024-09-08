@@ -41,12 +41,7 @@ class TestCase extends MainTestCase
         parent::tearDown();
     }
 
-    /**
-     * Retorna os dados fakes de um tipo de conta para ser utilizado 
-     * em testes 
-     *
-     * @return Factory 
-     */
+    
     public function typeFactory() : Factory
     {
         return Type::factory();
@@ -58,13 +53,20 @@ class TestCase extends MainTestCase
      *
      * @return Factory 
      */
-    public function accountFactory() : Factory
-    {        
-        $type = $this->typeFactory()->create();
+    public function makeAccount() : Account
+    {
+        return Accounts::factory()->account()->model();
+    }
 
-        $factory = Account::factory()->for($type);
-
-        return $factory;                          
+    /**
+     * Retorna os dados fakes de um tipo de conta para ser utilizado 
+     * em testes 
+     *
+     * @return Type 
+     */
+    public function makeType() : Type
+    {
+        return Accounts::factory()->type()->model();
     }
 
     /**

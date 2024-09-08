@@ -12,7 +12,7 @@ class FindOrFailAccountTest extends TestCase
 {
     public function testFindOrFailByName()
     {
-        $account = $this->accountFactory()->create();
+        $account = $this->makeAccount();
 
         $found = Accounts::account()->findOrFail($account->name);
 
@@ -21,7 +21,7 @@ class FindOrFailAccountTest extends TestCase
 
     public function testFindOrFailById()
     {
-        $account = $this->accountFactory()->create();
+        $account = $this->makeAccount();
 
         $found = Accounts::account()->findOrFail($account->id);
 

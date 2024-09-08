@@ -2,12 +2,12 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Services\Foundation\AccountHandler;
+use Maestro\Accounts\Support\Facades\AccountFacade;
 
 trait HandlesAccounts
 {
-    public function account() : AccountHandler
+    public function account() : AccountFacade
     {
-        return app()->make(AccountHandler::class);
+        return app()->make(AccountFacade::class);
     }
 }

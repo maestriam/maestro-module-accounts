@@ -9,7 +9,7 @@ class DeleteAccountTest extends TestCase
 {
     public function testDeleteAccount()
     {
-        $account = $this->accountFactory()->create();
+        $account = $this->makeAccount();
 
         $ret = Accounts::account()->delete($account->name);        
 

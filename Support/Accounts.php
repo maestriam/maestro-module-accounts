@@ -5,8 +5,9 @@ namespace Maestro\Accounts\Support;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Maestro\Accounts\Services\Foundation\AccountHandler account()
- * @method static \Maestro\Accounts\Services\Foundation\TypeHandler type()
+ * @method static \Maestro\Accounts\Support\Facades\TypeFacade type()
+ * @method static \Maestro\Accounts\Support\Facades\AccountFacade account()
+ * @method static \Maestro\Accounts\Support\Facades\FactoryFacade factory()
  */
 class Accounts extends Facade
 {

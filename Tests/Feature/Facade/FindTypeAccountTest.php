@@ -9,7 +9,7 @@ class FindTypeAccountTest extends TestCase
 {
     public function testFindTypeByIdTest()
     {
-        $type = Accounts::type()->factory()->create();
+        $type = $this->makeType();
         
         $search = Accounts::type()->find($type->id);
         
@@ -18,7 +18,7 @@ class FindTypeAccountTest extends TestCase
     
     public function testFindTypeByNameTest()
     {
-        $type = Accounts::type()->factory()->create();
+        $type = $this->makeType();
 
         $search = Accounts::type()->find($type->name);
 

@@ -9,8 +9,7 @@ class FindAccountTest extends TestCase
 {
     public function testFindAccount()
     {
-        $factory = $this->accountFactory()->create();
-
+        $factory = $this->makeAccount();
         $account = Accounts::account()->find($factory->name);
 
         $this->assertNotNull($account);

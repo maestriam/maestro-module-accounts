@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Services\Foundation;
+namespace Maestro\Accounts\Support\Facades;
 
 use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Collection;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
-class TypeHandler
+class TypeFacade
 {
     use CreatesTypes, 
         SearchesTypes;

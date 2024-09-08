@@ -9,10 +9,10 @@ class AllTypeAccountsTest extends TestCase
 {
     public function testGetAllTypes()
     {
-        Accounts::type()->factory()->create();
-        Accounts::type()->factory()->create();
+        $this->makeType();
 
-        $types = Accounts::type()->all();        
+        $types = Accounts::type()->all();
+
         $this->assertNotEmpty($types);        
     }
 }
