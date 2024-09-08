@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Users\Support\Users;
@@ -10,24 +10,24 @@ class RelateAccountsTest extends TestCase
 {
     public function testRelateAccounts()
     {
-        $user1 = $this->makeEntityWithAccount();
-        $user2 = $this->makeEntityWithAccount();
+        $child  = $this->makeMock();
+        $parent = $this->makeMock();
 
-        $response = Accounts::account()->relate($user1, $user2);
+        $response = Accounts::account()->relate($child, $parent);
 
         $this->assertTrue($response);
     }
 
     public function testDuplicateRelations()
     {
-        $child  = $this->makeEntityWithAccount();
-        $parent = $this->makeEntityWithAccount();
+        $child  = $this->makeMock();
+        $parent = $this->makeMock();
 
         Accounts::account()->relate($child, $parent);
         Accounts::account()->relate($child, $parent);
                 
         $relations = Accounts::account()->parents($child->account()->id);
 
-        $this->assertEquals(1, count($relations));  
+        $this->assertCount(1, $relations);
     }
 }

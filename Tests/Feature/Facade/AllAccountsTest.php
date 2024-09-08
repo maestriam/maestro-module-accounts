@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Users\Support\Users;
@@ -23,6 +23,6 @@ class AllAccountsTest extends TestCase
 
         $user = Users::factory()->model();
 
-        Accounts::account()->create($user, $name);
+        Accounts::account()->creator()->create($user, $name);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Support\Accounts;
@@ -10,8 +10,8 @@ class UpdateAccountTest extends TestCase
 {
     public function testUpdate()
     {
-        $name    = 'update-account';
-        $entity  = $this->makeEntityWithAccount();              
+        $name   = 'update-account';
+        $entity = $this->makeMock();              
 
         $updated = Accounts::account()->update($entity, $name);
         

@@ -42,22 +42,6 @@ class TestCase extends MainTestCase
     }
 
     /**
-     * Retorna um objeto de entidade fictício com dados de uma conta
-     *
-     * @return EntityMOck
-     */
-    public function makeEntityWithAccount() : EntityMOck
-    {
-        $entity = new EntityMOck();
-
-        $name = $this->faker()->userName();
-
-        Accounts::account()->create($entity, $name);
-
-        return $entity;
-    }
-
-    /**
      * Retorna os dados fakes de um tipo de conta para ser utilizado 
      * em testes 
      *
@@ -86,8 +70,8 @@ class TestCase extends MainTestCase
     /**
      * Retorna uma instância de um objeto fictício para 
      * realização de testes.  
-     * Caso queira que não possua uma conta vinculada, basta passar
-     * o parâmetro $makeAccount como false.  
+     * Caso não queira uma conta vinculada a entidade, 
+     * basta passar o parâmetro $makeAccount como false.  
      *
      * @param boolean $makeAccount
      * @return Entity
@@ -100,7 +84,7 @@ class TestCase extends MainTestCase
 
             $name = $this->faker()->userName();
 
-            Accounts::account()->create($entity, $name);
+            Accounts::account()->creator()->create($entity, $name);
         }
 
         return $entity;

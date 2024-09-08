@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
 use Maestro\Accounts\Exceptions\UnavailableAccountException;
+use Maestro\Accounts\Support\Contracts\Accountable;
 
 class AccountFinder
 {
@@ -95,12 +96,13 @@ class AccountFinder
      * @param string|object|integer $search
      * @return Account|null
      */
-    public function find(string|object|int $search) : ?Account
+    public function find(string|Accountable|int $search) : ?Account
     {
         $account = match(true) {
             is_int($search)    => $this->findById($search),
             is_string($search) => $this->findByName($search),
             is_object($search) => $this->findByObject($search),
+            default            => null
         };
 
         return $account;

@@ -5,21 +5,17 @@ namespace Maestro\Accounts\Services\Foundation;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Exceptions\AccountModelNotAllowedException;
+use Maestro\Accounts\Services\Contracts\AccountCreatorContract;
 use Maestro\Accounts\Support\Concerns\HandlesTypes;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
-class AccountCreator
+class AccountCreator implements AccountCreatorContract
 {    
     use HandlesTypes,
         SearchesAccounts;
 
     /**
-     * Executa a criação de um nova conta
-     *
-     * @param object $entity
-     * @param string $name
-     * @param string|null $type
-     * @return Account
+     * {@inheritDoc}
      */
     public function create(object $entity, string $name, string $type = null) : Account
     {

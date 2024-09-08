@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Entities\Relation;
 use Maestro\Accounts\Support\Accounts;
@@ -26,8 +26,8 @@ class GetRelationshipTest extends TestCase
         $user1 = Users::factory()->model();
         $user2 = Users::factory()->model();
 
-        Accounts::account()->create($user1, 'my.f4ke-user');
-        Accounts::account()->create($user2, 'my.comp4ny-user');
+        Accounts::account()->creator()->create($user1, 'my.f4ke-user');
+        Accounts::account()->creator()->create($user2, 'my.comp4ny-user');
         Accounts::account()->relate($user1, $user2);
 
         return [ $user2, $user1 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Entities\Type;
@@ -14,7 +14,7 @@ class AccountInfoTest extends TestCase
     {
         $user = Users::factory()->model();                           
 
-        Accounts::account()->create($user, 'x');
+        Accounts::account()->creator()->create($user, 'x');
         
         $account = Accounts::account()->info($user);
 

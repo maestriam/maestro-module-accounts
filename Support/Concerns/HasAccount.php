@@ -19,16 +19,6 @@ trait HasAccount
      */
     public function account() : ?Account
     {
-        return $this->getAccount();
-    }
-
-    /**
-     * Retorna todos os dados da conta
-     *
-     * @return Account|null
-     */
-    private function getAccount() : ?Account
-    {
         $search = app(AccountFinder::class);
 
         return $search->info($this);

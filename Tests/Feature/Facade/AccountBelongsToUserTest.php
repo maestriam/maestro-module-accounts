@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Users\Support\Users;
@@ -10,11 +10,11 @@ class AccountBelongsToUserTest extends TestCase
 {
     public function testBelongsTo()
     {
-        $user = $this->makeEntityWithAccount();
+        $entity = $this->makeMock();
         
-        $name = $user->account()->name;
+        $name = $entity->account()->name;
         
-        $belongs = Accounts::account()->belongsTo($user, $name);
+        $belongs = Accounts::account()->belongsTo($entity, $name);
 
         $this->assertTrue($belongs);
     }

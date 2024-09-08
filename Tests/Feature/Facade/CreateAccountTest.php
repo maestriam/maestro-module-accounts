@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Tests\TestCase;
@@ -20,7 +20,7 @@ class CreateAccountTest extends TestCase
                        
         $user = Users::factory()->model();
                 
-        $account = Accounts::account()->create($user, $name);
+        $account = Accounts::account()->creator()->create($user, $name);
 
         $this->assertInstanceOf(Account::class, $account);
     }

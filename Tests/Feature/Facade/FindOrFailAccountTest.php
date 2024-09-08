@@ -1,6 +1,6 @@
 <?php
 
-namespace Maestro\Accounts\Tests\Features\Facade;
+namespace Maestro\Accounts\Tests\Feature\Facade;
 
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Entities\Account;
@@ -30,11 +30,11 @@ class FindOrFailAccountTest extends TestCase
 
     public function testFindOrFailByEntity()
     {
-        $user = new EntityMock();
+        $mock = $this->makeMock();
 
-        $account = Accounts::account()->create($user, 'account-name');
+        $account = $mock->account();
 
-        $found = Accounts::account()->findOrFail($user);
+        $found = Accounts::account()->findOrFail($mock);
 
         $this->assertFoundIsSuccess($found, $account);
     }

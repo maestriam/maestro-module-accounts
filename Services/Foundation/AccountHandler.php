@@ -5,21 +5,24 @@ namespace Maestro\Accounts\Services\Foundation;
 use Maestro\Accounts\Entities\Account;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
+use Maestro\Accounts\Services\Contracts\AccountCreatorContract;
 use Maestro\Accounts\Support\Concerns\CreatesAccounts;
 use Maestro\Accounts\Support\Concerns\AccountRelationship;
+use Maestro\Accounts\Support\Concerns\DeletesAccounts;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
-class AccountHandler
+class AccountHandler implements AccountCreatorContract
 {
     use CreatesAccounts, 
-        SearchesAccounts, 
+        SearchesAccounts,
+        DeletesAccounts, 
         AccountRelationship;
 
     /**
      * {@inheritDoc}
-     */
+     */        
     public function create(object $entity, string $name, string $type = null) : Account
-    {                
+    {
         return $this->creator()->create($entity, $name, $type);
     }
 
@@ -34,15 +37,9 @@ class AccountHandler
     /**
      * {@inheritDoc}
      */
-    public function delete(string|int|object $search) : ?bool
+    public function delete(string|int|object $target) : ?bool
     {
-        $account = $this->find($search);
-
-        if ($account == null) {
-            return null;
-        }
-
-        return $this->creator()->delete($account);
+        return $this->destroyer()->delete($target);
     }
 
     /**
