@@ -7,7 +7,7 @@ use Maestro\Accounts\Entities\Relation;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 
-class RelateAccountsService
+class RelationHandler
 {
     public function relate(object $child, object $parent) : bool
     {

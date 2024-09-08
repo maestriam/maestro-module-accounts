@@ -6,13 +6,13 @@ use Maestro\Accounts\Entities\Account;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use Maestro\Accounts\Support\Concerns\CreatesAccounts;
-use Maestro\Accounts\Support\Concerns\SearchesAccount;
 use Maestro\Accounts\Support\Concerns\AccountRelationship;
+use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
 class AccountHandler
 {
     use CreatesAccounts, 
-        SearchesAccount, 
+        SearchesAccounts, 
         AccountRelationship;
 
     /**

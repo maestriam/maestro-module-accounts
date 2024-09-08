@@ -4,16 +4,14 @@ namespace Maestro\Accounts\Services\Foundation;
 
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Entities\Account;
-use Maestro\Accounts\Support\Concerns\StoresTypes;
-use Maestro\Accounts\Support\Concerns\SearchesTypes;
-use Maestro\Accounts\Support\Concerns\SearchesAccount;
 use Maestro\Accounts\Exceptions\AccountModelNotAllowedException;
 use Maestro\Accounts\Support\Concerns\HandlesTypes;
+use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
-class StoreAccountService
+class AccountCreator
 {    
     use HandlesTypes,
-        SearchesAccount;
+        SearchesAccounts;
 
     /**
      * Executa a criação de um nova conta

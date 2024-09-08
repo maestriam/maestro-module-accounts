@@ -2,17 +2,17 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Services\Foundation\StoreAccountService;
+use Maestro\Accounts\Services\Foundation\AccountCreator;
 
 trait CreatesAccounts
 {
     /**
      * Retorna o serviço para persistência de dados da conta
      *
-     * @return StoreAccountService
+     * @return AccountCreator
      */
-    public function creator() : StoreAccountService
+    public function creator() : AccountCreator
     {
-        return app()->make(StoreAccountService::class);
+        return app()->make(AccountCreator::class);
     }
 }

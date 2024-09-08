@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Exceptions\TypeNotFoundException;
 
-class FindTypeService
+class TypeFinder
 {
     /**
      * Pesquisa um tipo de conta através 

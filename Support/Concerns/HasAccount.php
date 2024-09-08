@@ -3,7 +3,7 @@
 namespace Maestro\Accounts\Support\Concerns;
 
 use Maestro\Accounts\Entities\Account;
-use Maestro\Accounts\Services\Foundation\FindAccountService;
+use Maestro\Accounts\Services\Foundation\AccountFinder;
 
 /**
  * Fornece a classe funcionalidades para criação de conta
@@ -29,7 +29,7 @@ trait HasAccount
      */
     private function getAccount() : ?Account
     {
-        $search = app(FindAccountService::class);
+        $search = app(AccountFinder::class);
 
         return $search->info($this);
     }

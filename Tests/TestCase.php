@@ -2,13 +2,16 @@
 
 namespace Maestro\Accounts\Tests;
 
-use Maestro\Admin\Tests\TestCase as MainTestCase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Maestro\Users\Support\Users;
+use Maestro\Users\Entities\User;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Entities\Account;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Support\Accounts;
+use Illuminate\Foundation\Testing\WithFaker;
 use Maestro\Accounts\Tests\Mocks\EntityMOck;
+use Maestro\Admin\Tests\TestCase as MainTestCase;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Maestro\Accounts\Tests\Mocks\Entity;
 use Maestro\Users\Support\Concerns\WithUserFactory;
 
 class TestCase extends MainTestCase
@@ -78,5 +81,44 @@ class TestCase extends MainTestCase
         $factory = Account::factory()->for($type);
 
         return $factory;                          
+    }
+
+    /**
+     * Retorna uma instância de um objeto fictício para 
+     * realização de testes.  
+     * Caso queira que não possua uma conta vinculada, basta passar
+     * o parâmetro $makeAccount como false.  
+     *
+     * @param boolean $makeAccount
+     * @return Entity
+     */
+    protected function makeMock(bool $makeAccount = true) : Entity
+    {
+        $entity = new Entity();
+
+        if ($makeAccount) {
+
+            $name = $this->faker()->userName();
+
+            Accounts::account()->create($entity, $name);
+        }
+
+        return $entity;
+    }
+
+    /**
+     * Retorna um model de um usuário ficticio para testes
+     *
+     * @param integer|null $qty
+     * @return User|array
+     * 
+     * @todo Deve-se pensar outro jeito de não implementar usuário
+     * sem precisar de colocar o módulo maestro/user;
+     */
+    public function makeUser(int $qty = null) : User|array
+    {
+        return ($qty == null) ? 
+            Users::factory()->model() : 
+            Users::factory()->populate($qty);
     }
 }

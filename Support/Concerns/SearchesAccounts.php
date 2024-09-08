@@ -2,17 +2,17 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Services\Foundation\FindAccountService;
+use Maestro\Accounts\Services\Foundation\AccountFinder;
 
 trait SearchesAccounts
 {
     /**
      * Retorna o serviço para consulta de dados da conta
      *
-     * @return FindAccountService
+     * @return AccountFinder
      */
-    private function finder() : FindAccountService
+    private function finder() : AccountFinder
     {
-        return app()->make(FindAccountService::class);
+        return app()->make(AccountFinder::class);
     }
 }

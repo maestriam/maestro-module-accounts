@@ -2,7 +2,7 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Services\Foundation\FindTypeService;
+use Maestro\Accounts\Services\Foundation\TypeFinder;
 
 trait SearchesTypes 
 {
@@ -10,10 +10,10 @@ trait SearchesTypes
      * Retorna a instância com as RN's sobre 
      * a pesquisa de tipo de contas.
      *
-     * @return FindTypeService
+     * @return TypeFinder
      */
     public function search()
     {
-        return app()->make(FindTypeService::class);
+        return app()->make(TypeFinder::class);
     }
 }

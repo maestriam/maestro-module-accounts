@@ -7,7 +7,7 @@ use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
 use Maestro\Accounts\Exceptions\UnavailableAccountException;
 
-class FindAccountService
+class AccountFinder
 {
     /**
      * Retorna TODAS as contas cadastradas no banco
@@ -25,9 +25,9 @@ class FindAccountService
      * nome da conta não está disponível. 
      *
      * @param string $name
-     * @return void
+     * @return bool
      */
-    public function notExistsOrFail(string $name)
+    public function notExistsOrFail(string $name) : bool
     {
         if ($this->isExists($name)) {
             return throw new UnavailableAccountException();

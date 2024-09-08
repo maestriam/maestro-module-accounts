@@ -2,17 +2,18 @@
 
 namespace Maestro\Accounts\Support\Concerns;
 
-use Maestro\Accounts\Services\Foundation\RelateAccountsService;
+use Maestro\Accounts\Services\Foundation\RelationHandler;
 
 trait AccountRelationship
 {
     /**
-     * Undocumented function
+     * Retorna as regras de negócio para manipular
+     * relacionamento entre entidades. 
      *
-     * @return RelateAccountsService
+     * @return RelationHandler
      */
-    private function relation() : RelateAccountsService
+    private function relation() : RelationHandler
     {
-        return app(RelateAccountsService::class);
+        return app(RelationHandler::class);
     }
 }
