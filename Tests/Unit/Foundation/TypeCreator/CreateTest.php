@@ -7,27 +7,19 @@ use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Entities\TypeEntity;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
+use Maestro\Accounts\Tests\Mocks\Entity;
 
 class CreateTest extends TestCase
 { 
     use CreatesTypes;
 
-    /*public function testCreateByName()
-    {
-        $entity = new TypeEntity();
-        
-        $name = $this->faker()->city() . time();
-        $type = $entity->create($name);
-
-        $this->assertInstanceOf(Type::class, $type); 
-    }*/
-
     public function testCreateByObject()
     {
-        $object = new User();
+        $entity = new Entity();
         
-        $type = $this->creator()->create($object);
+        $type = $this->creator()->create($entity);
 
-        $this->assertInstanceOf(Type::class, $type); 
+        $this->assertInstanceOf(Type::class, $type);
+        $this->assertEquals($entity->token(), $type->token);
     }
 }

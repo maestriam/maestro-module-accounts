@@ -85,7 +85,7 @@ class RelationHandler
 
         $class = app()->make($account->type->name);
 
-        return $class->find($account->entity_id);
+        return $class->find($account->entityId);
     }
 
     /**

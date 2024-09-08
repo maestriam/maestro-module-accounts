@@ -10,19 +10,11 @@ class AllAccountsTest extends TestCase
 {
     public function testGetAllAccounts()
     {
-        $this->createAccounts();
+        $this->makeAccount();
 
         $accounts = Accounts::account()->all();
 
         $this->assertFalse($accounts->isEmpty());
-    }
-
-    private function createAccounts()
-    {
-        $name = 'my.f4ke-user';
-
-        $user = Users::factory()->model();
-
-        Accounts::account()->creator()->create($user, $name);
+        $this->assertCount(1, $accounts);
     }
 }

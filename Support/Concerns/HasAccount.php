@@ -11,11 +11,9 @@ use Maestro\Accounts\Services\Foundation\AccountFinder;
 trait HasAccount
 {
     /**
-     * Define o nome da conta de uma entidade ou retorna os dados da
-     * conta. 
+     * Retorna as informações da conta da entidade. 
      *
-     * @param string|null $name
-     * @return self|Account
+     * @return Account|null
      */
     public function account() : ?Account
     {

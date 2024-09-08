@@ -16,12 +16,12 @@ class CreateAccountTest extends TestCase
      */
     public function testCreateAccount()
     {  
-        $name = 'my.account'; 
-                       
-        $user = Users::factory()->model();
+        $name = 'my.account';                        
+        $mock = $this->makeMock(false);
                 
-        $account = Accounts::account()->creator()->create($user, $name);
+        $account = Accounts::account()->creator()->create($mock, $name);
 
         $this->assertInstanceOf(Account::class, $account);
+        $this->assertEquals($name, $account->name);
     }
 }

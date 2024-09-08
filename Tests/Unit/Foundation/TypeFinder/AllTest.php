@@ -11,6 +11,8 @@ class AllTest extends TestCase
 
     public function testAll()
     {
+        $this->makeType();
+
         $types = $this->search()->all();
 
         $this->assertCount(1, $types);

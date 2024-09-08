@@ -105,9 +105,4 @@ class AccountCreator implements AccountCreatorContract
 
         return $account;
     } 
-
-    public function delete(Account $account) : ?bool
-    {
-        return $account->delete();
-    }
 }

@@ -12,11 +12,10 @@ class CreateTest extends TestCase
 
     public function testCreateAccount()
     {
-        $user = $this->makeUser();
+        $mock = $this->makeMock(false);        
         $name = 'account-name-to-my-user';
 
-        $account = $this->creator()->create($user, $name);
-
+        $account = $this->creator()->create($mock, $name);
         $this->assertInstanceOf(Account::class, $account);
     }
 }

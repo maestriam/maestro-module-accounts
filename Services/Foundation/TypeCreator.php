@@ -47,11 +47,21 @@ class TypeCreator
     {   
         $name = $this->getName($entity);
         
-        $type->auth = $auth;       
-        $type->name = $name;
+        $type->auth  = $auth;       
+        $type->name  = $name;
+        $type->token = $this->getToken($entity);
+
         $type->save();
 
         return $type;
+    }
+
+    private function getToken(string|object $entity) : string
+    {
+        return match(true) {
+            is_object($entity) => $entity->token(),
+            is_string($entity) => sha1($entity),
+        };
     }
 
     /**

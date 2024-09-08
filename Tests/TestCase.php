@@ -2,21 +2,18 @@
 
 namespace Maestro\Accounts\Tests;
 
-use Maestro\Users\Support\Users;
-use Maestro\Users\Entities\User;
+use Tests\TestCase as BaseTestCase;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Support\Accounts;
-use Illuminate\Foundation\Testing\WithFaker;
-use Maestro\Accounts\Tests\Mocks\EntityMOck;
-use Maestro\Admin\Tests\TestCase as MainTestCase;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Artisan;
 use Maestro\Accounts\Tests\Mocks\Entity;
-use Maestro\Users\Support\Concerns\WithUserFactory;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-class TestCase extends MainTestCase
+class TestCase extends BaseTestCase
 {  
-    use WithFaker, WithUserFactory;
+    use WithFaker;
 
     /**
      * Ao iniciar os testes...
@@ -26,10 +23,9 @@ class TestCase extends MainTestCase
     public function setUp() : void
     {
         parent::setUp();
-        $this->start();
-        $this->initSession();
+        $this->migrate();
     }
-    
+
     /**
      * Ao encerrar os testes...
      *
@@ -37,14 +33,18 @@ class TestCase extends MainTestCase
      */
     public function tearDown() : void
     {
-        $this->finish();
+        $this->rollback();
         parent::tearDown();
     }
 
-    
-    public function typeFactory() : Factory
+    private function migrate()
     {
-        return Type::factory();
+        Artisan::call('maestro:migrate Accounts');
+    }
+
+    public function rollback()
+    {
+        Artisan::call('maestro:rollback Accounts');
     }
 
     /**
@@ -83,28 +83,10 @@ class TestCase extends MainTestCase
         $entity = new Entity();
 
         if ($makeAccount) {
-
             $name = $this->faker()->userName();
-
             Accounts::account()->creator()->create($entity, $name);
         }
 
         return $entity;
-    }
-
-    /**
-     * Retorna um model de um usuário ficticio para testes
-     *
-     * @param integer|null $qty
-     * @return User|array
-     * 
-     * @todo Deve-se pensar outro jeito de não implementar usuário
-     * sem precisar de colocar o módulo maestro/user;
-     */
-    public function makeUser(int $qty = null) : User|array
-    {
-        return ($qty == null) ? 
-            Users::factory()->model() : 
-            Users::factory()->populate($qty);
     }
 }

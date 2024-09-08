@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Exceptions\AccountNotFoundException;
 use Maestro\Accounts\Exceptions\UnavailableAccountException;
-use Maestro\Accounts\Support\Contracts\Accountable;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 
 class AccountFinder
 {

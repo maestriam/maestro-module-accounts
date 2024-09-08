@@ -4,9 +4,9 @@
 namespace Maestro\Accounts\Services\Foundation;
 
 use Maestro\Accounts\Entities\Account;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\DeletesAccounts;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
-use Maestro\Accounts\Support\Contracts\Accountable;
 
 class AccountDestroyer
 {

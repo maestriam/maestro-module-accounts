@@ -2,18 +2,22 @@
 namespace Maestro\Accounts\Tests\Mocks;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Maestro\Accounts\Support\Concerns\HasAccount;
-use Maestro\Accounts\Support\Contracts\Accountable;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 
-class Entity implements Accountable
+class Entity extends Accountable
 {
-    use HasAccount, WithFaker;
+    use WithFaker;
 
-    public int $id;
+    private const TOKEN = '73b7d7fa141aa6769ec8bb7ed1';
 
     public function __construct()
     {
-        $this->id = rand(1, 99999999999);
+        $this->id = rand(1, 9999999);
+    }
+
+    public function token(): string
+    {
+        return self::TOKEN;
     }
 
     public function name(): string

@@ -37,8 +37,8 @@ class TypeFactory extends Factory
     public function definition() : array
     {
         return [
-            'name' => $this->faker->word(),
-            'auth' => $this->faker->boolean()
+            'name'  => $this->faker->word(),
+            'auth'  => $this->faker->boolean(),
         ];
     }
 }

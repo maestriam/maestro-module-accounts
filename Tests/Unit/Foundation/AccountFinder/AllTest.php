@@ -10,7 +10,9 @@ class AllTest extends TestCase
     use SearchesAccounts;
 
     public function testAll()
-    {
+    {       
+        $this->makeAccount();
+
         $accounts = $this->finder()->all();
 
         $this->assertCount(1, $accounts);
