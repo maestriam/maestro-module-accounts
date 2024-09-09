@@ -37,11 +37,21 @@ class TestCase extends BaseTestCase
         parent::tearDown();
     }
 
+    /**
+     * Executa a criação das tabelas do módulo no banco de dados.
+     *
+     * @return void
+     */
     private function migrate()
     {
         Artisan::call('maestro:migrate Accounts');
     }
 
+    /**
+     * Desfaz a criação das tabelas do módulo no banco de dados. 
+     *
+     * @return void
+     */
     public function rollback()
     {
         Artisan::call('maestro:rollback Accounts');

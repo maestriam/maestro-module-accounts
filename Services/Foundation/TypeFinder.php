@@ -4,37 +4,84 @@ namespace Maestro\Accounts\Services\Foundation;
 
 use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Entities\Type;
+use Maestro\Accounts\Exceptions\TypeExistsException;
 use Maestro\Accounts\Exceptions\TypeNotFoundException;
+use Maestro\Accounts\Support\Abstraction\Accountable;
+use Maestro\Accounts\Support\Concerns\RetrivesClassName;
 
 class TypeFinder
-{
+{    
+    use RetrivesClassName;
+
+    /**
+     * Executa uma pesquisa de um tipo de conta através de
+     * uma entidade Accountable. 
+     *
+     * @param Accountable $search
+     * @return Type|null
+     */
+    public function findByAccountable(Accountable $search) : ?Type
+    {
+        $params = [
+            'name'  => $this->getClassName($search), 
+            'token' => trim($search->token())
+        ];
+
+        return Type::where($params)->first();
+    }
+
+    /**
+     * Executa uma pesquisa de um tipo de conta através 
+     * nome da classe ou pelo token.  
+     *
+     * @param string $search
+     * @return Type|null
+     */
+    public function findBySignature(string $search) : ?Type
+    {
+        $token = ['token' => $search];
+        $class = ['name' => $search];
+
+        return Type::where($token)->orWhere($class)->first();
+    }
+
+    /**
+     * Executa uma pesquisa de um tipo de conta através de
+     * um id específico. 
+     * 
+     * @param  int $id
+     * @return Type        
+     */
+    public function findById(int $id) : ?Type
+    {
+        return Type::find($id);
+    }
+
     /**
      * Pesquisa um tipo de conta através 
      * de seu nome ou ID.
      *
-     * @param string|int|object $search
-     * @return Type
+     * @param Accountable|int $search
+     * @return Type|null
      */
-    public function find(string|int|object $search) : ?Type
+    public function find(Accountable|string|int $search) : ?Type
     {
-        if (is_int($search)) {
-            return $this->findById($search);
-        }
-
-        if (is_object($search)) {
-            return $this->findByObject($search);
-        }
-
-        return $this->findByName($search);
+        return match(true) {
+            is_string($search) => $this->findBySignature($search),
+            is_int($search)    => $this->findById($search),
+            default            => $this->findByAccountable($search)
+        };
     }
 
     /**
-     * Undocumented function
+     * Executa uma pesquisa de tipo de conta. Caso não encontre nenhum
+     * resultado, deve disparar uma mensagem de erro.
      *
-     * @param string|integer|object $search
+     * @param string|integer|Accountable $search
+     * @throws TypeNotFoundException
      * @return Type
      */
-    public function findOrFail(string|int|object $search) : Type
+    public function findOrFail(string|int|Accountable $search) : Type
     {
         $type = $this->find($search);
         
@@ -46,41 +93,12 @@ class TypeFinder
     }
 
     /**
-     * Retorna todos os tipos cadastrados
+     * Retorna todos os tipos de contas cadastrados
      *
      * @return Collection
      */
     public function all() : Collection
     {
         return Type::all();
-    }
-
-    /**
-     * Pesquisa o tipo de conta através de seu nome.
-     *
-     * @param  string $name
-     * @return Type        
-     */
-    private function findByName(string $name) : ?Type
-    {
-        return Type::where('name', $name)->first();
-    }
-
-    /**
-     * Pesquisa o tipo de conta através de seu ID
-     *
-     * @param  int $id
-     * @return Type        
-     */
-    private function findById(int $id) : ?Type
-    {
-        return Type::find($id);
-    }
-
-    private function findByObject(object $object) : ?Type
-    {
-        $name = get_class($object);
-
-        return $this->findByName($name);
     }
 }

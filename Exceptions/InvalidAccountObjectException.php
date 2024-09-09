@@ -6,7 +6,7 @@ use Maestro\Accounts\Exceptions\BaseException;
 
 class InvalidAccountObjectException extends BaseException
 {
-    const CODE = '0101';
+    const CODE = 'ACCEX0101';
 
     /**
      * Define as configuração para enviar o exception
@@ -23,7 +23,7 @@ class InvalidAccountObjectException extends BaseException
      */
     public function getErrorMessage(): string
     {
-        return 'The object provided is invalid. Check if accountName and password was setted or class use HasAccount trait.';
+        return 'The object provided does not extends from Accountable class.';
     }
 
     /**

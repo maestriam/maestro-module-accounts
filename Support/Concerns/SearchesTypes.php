@@ -12,7 +12,7 @@ trait SearchesTypes
      *
      * @return TypeFinder
      */
-    public function search()
+    public function finder()
     {
         return app()->make(TypeFinder::class);
     }

@@ -4,6 +4,7 @@ namespace Maestro\Accounts\Database\Factories;
 use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
+use Maestro\Accounts\Tests\Mocks\Entity;
 
 class TypeFactory extends Factory
 {
@@ -37,8 +38,8 @@ class TypeFactory extends Factory
     public function definition() : array
     {
         return [
-            'name'  => $this->faker->word(),
-            'auth'  => $this->faker->boolean(),
+            'entity' => new Entity(),
+            'auth'   => $this->faker->boolean(),
         ];
     }
 }

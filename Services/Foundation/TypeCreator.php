@@ -4,85 +4,83 @@ namespace Maestro\Accounts\Services\Foundation;
 
 use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use maestro\Accounts\Exceptions\TokenNotFoundException;
 use Maestro\Accounts\Exceptions\TypeExistsException;
+use Maestro\Accounts\Support\Abstraction\Accountable;
+use Maestro\Accounts\Support\Concerns\RetrivesClassName;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
 class TypeCreator
 {
-    use SearchesTypes;
+    use SearchesTypes, 
+        RetrivesClassName;
 
     /**
-     * {@inheritDoc}
-     */
-    public function create(string|object $name, bool $auth = false) : Type 
-    {        
-        if ($this->search()->find($name)) {
-            throw new TypeExistsException($name);
-        }
-
-        $type = new Type();
-
-        return $this->save($type, $name, $auth);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findOrCreate(string|object $name, bool $auth = false) : Type
-    {
-        $type = $this->search()->find($name);
-
-        return (! $type) ? $this->create($name, $auth) : $type;
-    }
-
-    /**
-     * Salva as informações de um tipo de conta
-     *
-     * @param Type $type
-     * @param string|object $entity
+     * Executa a criação de um novo tipo de conta, de acordo com um objeto
+     * Accoutable específico.  
+     * Somente é possível criar apenas um tipo com o mesmo token e mesma classe.    
+     * Caso contrário, uma exception deve ser disparada. 
+     * 
+     * @param Accountable $entity
      * @param boolean $auth
+     * @throws TypeExistsException
      * @return Type
      */
-    public function save(Type $type, string|object $entity, bool $auth) : Type
-    {   
-        $name = $this->getName($entity);
-        
-        $type->auth  = $auth;       
-        $type->name  = $name;
-        $type->token = $this->getToken($entity);
+    public function create(Accountable $entity, bool $auth = false) : Type 
+    {            
+        $type = $this->finder()->find($entity);
 
+        if ($type != null) {
+            return $type;
+        }
+
+        return $this->save($entity, $auth);
+    }
+
+    public function findOrCreate(Accountable $entity) : Type
+    {
+        $type = $this->finder()->find($entity);
+
+        return $type == null ? $this->create($entity) : $type;
+    }
+
+    /**
+     * Salva as informações 
+     *
+     * @param Accountable $entity
+     * @param boolean $auth
+     * @param Type|null $type
+     * @return Type
+     */
+    public function save(Accountable $entity, bool $auth, Type $type = null) : Type
+    {   
+        $type = $type ?? new Type();
+
+        $type->auth  = $auth;       
+        $type->token = $this->getToken($entity);
+        $type->name  = $this->getClassName($entity);
+        
         $type->save();
 
         return $type;
     }
 
-    private function getToken(string|object $entity) : string
-    {
-        return match(true) {
-            is_object($entity) => $entity->token(),
-            is_string($entity) => sha1($entity),
-        };
-    }
-
     /**
-     * Retorna um factory de tipo de conta
+     * Retorna o token unico relacionado a classe. 
+     * Caso não encontre, deve ser disparado um exception. 
      *
-     * @return Factory
-     */
-    public function factory() : Factory
-    {
-        return Type::factory();
-    }
-
-    /**
-     * Extrai um nome para um tipo de conta 
-     * através de uma classe ou uma string.  
-     *
-     * @param string|object $type
+     * @param Accountable $entity
+     * @throws TokenNotFoundException
      * @return string
      */
-    public function getName(string|object $type) : string
+    protected function getToken(Accountable $entity) : string
     {
-        return (is_string($type)) ? $type : get_class($type);
-    }    
+        $token = trim($entity->token());
+
+        if (strlen($token) == 0) {
+            throw new TokenNotFoundException($entity);
+        }
+
+        return $entity->token();
+    }
 }

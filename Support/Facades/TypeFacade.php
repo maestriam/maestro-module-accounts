@@ -5,6 +5,7 @@ namespace Maestro\Accounts\Support\Facades;
 use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
@@ -13,19 +14,12 @@ class TypeFacade
     use CreatesTypes, 
         SearchesTypes;
 
-    private string|object|null $entity = null;
-
-    public function __construct(string|object $name = null)
-    {
-        $this->entity = $name;
-    }
-
     /**
      * {@inheritDoc}
      */
     public function find(string|int|object $search) : ?Type
     {
-        return $this->search()->find($search);
+        return $this->finder()->find($search);
     }
 
     /**
@@ -33,7 +27,12 @@ class TypeFacade
      */
     public function findOrFail(string|int|object $search) : Type
     {
-        return $this->search()->findOrFail($search);
+        return $this->finder()->findOrFail($search);
+    }
+
+    public function findOrCreate(Accountable $entity) : Type
+    {
+        return $this->creator()->findOrCreate($entity);
     }
 
     /**
@@ -41,7 +40,7 @@ class TypeFacade
      */
     public function all() : Collection
     {
-        return $this->search()->all();
+        return $this->finder()->all();
     }
 
     /**
@@ -55,26 +54,8 @@ class TypeFacade
     /**
      * {@inheritDoc}
      */
-    public function factory() : Factory
-    {
-        return $this->creator()->factory();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function create(string|object $name, bool $auth = false) : Type 
     { 
         return $this->creator()->create($name, $auth);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function findOrCreate(string|object $name, bool $auth = false) : Type
-    {
-        $type = $this->find($name);
-
-        return (! $type) ? $this->create($name, $auth) : $type;
     }
 }

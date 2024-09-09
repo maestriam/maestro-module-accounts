@@ -13,7 +13,7 @@ class AllTest extends TestCase
     {
         $this->makeType();
 
-        $types = $this->search()->all();
+        $types = $this->finder()->all();
 
         $this->assertCount(1, $types);
     }
