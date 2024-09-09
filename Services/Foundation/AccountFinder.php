@@ -101,7 +101,7 @@ class AccountFinder
         $account = match(true) {
             is_int($search)    => $this->findById($search),
             is_string($search) => $this->findByName($search),
-            is_object($search) => $this->findByObject($search),
+            is_object($search) => $this->findByAccountable($search),
             default            => null
         };
 
@@ -140,12 +140,12 @@ class AccountFinder
      * Pesquisa a conta pela função accountName.
      * É necessário que o objeto tenha o trait HasAccount.
      *
-     * @param object $object
+     * @param Accountable $entity
      * @return Account|null
      */
-    private function findByObject(object $object) : ?Account
+    private function findByAccountable(Accountable $entity) : ?Account
     {
-        $name = $object->account()->name;
+        $name = $entity->account()->name;
 
         return Account::where('name', $name)->first();       
     }

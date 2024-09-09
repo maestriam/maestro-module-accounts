@@ -14,6 +14,27 @@ class FindTest extends TestCase
         $search = $this->makeMock()->account();
         $found  = $this->finder()->find($search->id);
 
+        $this->assertAccount($search, $found);
+    }
+
+    public function testFindByAccountable()
+    {
+        $search = $this->makeMock();
+        $found  = $this->finder()->find($search);
+
+        $this->assertAccount($search->account(), $found);
+    }
+
+    public function testFindByName()
+    {
+        $search = $this->makeMock()->account();
+        $found  = $this->finder()->find($search->name);
+
+        $this->assertAccount($search, $found);
+    }
+
+    private function assertAccount($search, $found)
+    {
         $this->assertEquals($search->id, $found->id);
         $this->assertEquals($search->name, $found->name);
     }
