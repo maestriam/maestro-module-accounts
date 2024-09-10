@@ -2,10 +2,12 @@
 
 namespace Maestro\Accounts\Tests\Unit\Foundation\TypeFinder;
 
+use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
 use Maestro\Accounts\Support\Concerns\RetrivesClassName;
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
+use stdClass;
 
 class FindTest extends TestCase
 {
@@ -20,6 +22,15 @@ class FindTest extends TestCase
         $found = $this->finder()->findByAccountable($mock);
 
         $this->assertEquals($type->id, $found->id);
+    }
+
+    public function testNullableFindByAccountable()
+    {
+        $mock = $this->getNullMock();
+
+        $null = $this->finder()->findByAccountable($mock);
+
+        $this->assertNull($null);
     }
 
     public function testFindBySignature()
@@ -80,5 +91,14 @@ class FindTest extends TestCase
         $type  = $this->creator()->create($mock);
 
         return [$mock, $type];
+    }
+
+    private function getNullMock() : Accountable
+    {
+        return new class extends Accountable {
+            public function token() : string {
+                return '';
+            }            
+        };
     }
 }

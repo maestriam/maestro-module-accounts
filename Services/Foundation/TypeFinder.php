@@ -2,11 +2,10 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
-use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Entities\Type;
-use Maestro\Accounts\Exceptions\TypeExistsException;
-use Maestro\Accounts\Exceptions\TypeNotFoundException;
+use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Support\Abstraction\Accountable;
+use Maestro\Accounts\Exceptions\TypeNotFoundException;
 use Maestro\Accounts\Support\Concerns\RetrivesClassName;
 
 class TypeFinder
@@ -61,14 +60,14 @@ class TypeFinder
      * Pesquisa um tipo de conta através 
      * de seu nome ou ID.
      *
-     * @param Accountable|int $search
+     * @param Accountable|string|int $search
      * @return Type|null
      */
     public function find(Accountable|string|int $search) : ?Type
     {
         return match(true) {
-            is_string($search) => $this->findBySignature($search),
             is_int($search)    => $this->findById($search),
+            is_string($search) => $this->findBySignature($search),
             default            => $this->findByAccountable($search)
         };
     }
@@ -77,11 +76,11 @@ class TypeFinder
      * Executa uma pesquisa de tipo de conta. Caso não encontre nenhum
      * resultado, deve disparar uma mensagem de erro.
      *
-     * @param string|integer|Accountable $search
+     * @param Accountable|string|int $search
      * @throws TypeNotFoundException
      * @return Type
      */
-    public function findOrFail(string|int|Accountable $search) : Type
+    public function findOrFail(Accountable|string|int $search) : Type
     {
         $type = $this->find($search);
         
@@ -90,6 +89,20 @@ class TypeFinder
         }
         
         return $type;
+    }
+
+    /**
+     * Verifica se um determinado tipo de conta existe ou não,
+     * pesquisando através do seu ID, classe ou token da entidade,
+     * ou entidade Accountable.
+     * Caso exista, deve retornar true. Caso contrário, false. 
+     *
+     * @param Accountable|string|int $search
+     * @return bool
+     */
+    public function exists(Accountable|string|int $search) : bool
+    {
+        return $this->find($search) == null ? false : true;
     }
 
     /**

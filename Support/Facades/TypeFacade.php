@@ -46,15 +46,15 @@ class TypeFacade
     /**
      * {@inheritDoc}
      */
-    public function isExists(string|object $type)
+    public function exist(string|int|Accountable $type)
     {
-        return ($this->find($type) == null) ? false : true;
+        return $this->finder()->exists($type);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function create(string|object $name, bool $auth = false) : Type 
+    public function create(string|Accountable $name, bool $auth = false) : Type 
     { 
         return $this->creator()->create($name, $auth);
     }
