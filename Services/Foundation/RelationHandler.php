@@ -2,12 +2,12 @@
 
 namespace Maestro\Accounts\Services\Foundation;
 
+use Illuminate\Support\Collection;
 use Maestro\Accounts\Entities\Account;
 use Maestro\Accounts\Entities\Relation;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
 use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
+use Illuminate\Database\Eloquent\Collection as DbCollection;
 
 class RelationHandler
 {
@@ -18,9 +18,9 @@ class RelationHandler
      * Deve ser executada com parcimônia para não ocorrer degradação
      * do banco de dados. 
      *
-     * @return Collection
+     * @return DbCollection
      */
-    public function all() : Collection
+    public function all() : DbCollection
     {
         return Relation::all();
     }
@@ -30,12 +30,12 @@ class RelationHandler
      * a conta da entidade está inserida.
      *
      * @param Accountable|Account|string|int $child
-     * @return SupportCollection
+     * @return Collection
      */
     public function parents(
         Accountable|Account|string|int $child, 
         string $token = null
-    )  : SupportCollection{
+    )  : Collection {
 
         $collection = $this->find($child, $token);
 
@@ -47,12 +47,12 @@ class RelationHandler
      * a conta da entidade possui em seu inventário
      *
      * @param integer $parent
-     * @return SupportCollection
+     * @return Collection
      */
     public function children(
         Accountable|Account|string|int $parent, 
         string $token = null
-    ) : SupportCollection{
+    ) : Collection {
         
         $collection = $this->find($parent, $token, false);
 
@@ -65,13 +65,13 @@ class RelationHandler
      *
      * @param Accountable|Account|string|integer $child
      * @param string|null $token
-     * @return Collection
+     * @return DbCollection
      */
     private function find(
         Accountable|Account|string|int $child,
         string $token = null,
         bool $parent = true
-    ) : Collection{
+    ) : DbCollection {
 
         $id = $this->getAccountId($child);
 
@@ -91,10 +91,10 @@ class RelationHandler
      * Recebe uma coleção de dados de conta e 
      * retorna o objeto Accountable responsável por cada conta. 
      *
-     * @param Collection $collection
-     * @return SupportCollection
+     * @param DbCollection $collection
+     * @return Collection
      */
-    private function toEntity(Collection $collection) : SupportCollection
+    private function toEntity(DbCollection $collection) : Collection
     {
         $entities = [];
 
