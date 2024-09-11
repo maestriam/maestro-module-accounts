@@ -21,6 +21,24 @@ class AccountFinder
     }
 
     /**
+     * Recebe os dados de uma conta e retorna um objeto Accountable
+     * da entidade responsável pela conta. 
+     *
+     * @todo Conseguir materializar objeto pesquisando por nome,
+     * string, accountable.
+     * @param Account $account
+     * @return Accountable
+     */
+    public function entity(int $search) : mixed
+    {
+        $account = $this->findOrFail($search);
+
+        $accountable = app()->make($account->type->name);
+
+        return $accountable->find($account->entityId);
+    }
+
+    /**
      * Verifica se o nome da conta existe.   
      * Se existir, deve lançar um exception informando que o 
      * nome da conta não está disponível. 
@@ -108,13 +126,14 @@ class AccountFinder
      * @param string|object|integer $search
      * @return Account|null
      */
-    public function find(string|Accountable|int $search) : ?Account
+    public function find(string|Accountable|Account|int $search) : ?Account
     {
         $account = match(true) {
-            is_int($search)    => $this->findById($search),
-            is_string($search) => $this->findByName($search),
-            is_object($search) => $this->findByAccountable($search),
-            default            => null
+            default                   => null,
+            is_int($search)           => $this->findById($search),
+            is_string($search)        => $this->findByName($search),
+            is_object($search)        => $this->findByAccountable($search),
+            $this->isAccount($search) => $this->findById($search->id),
         };
 
         return $account;

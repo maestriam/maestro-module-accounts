@@ -99,24 +99,10 @@ class RelationHandler
         $entities = [];
 
         foreach ($collection as $account) {
-            $entities[] = $this->toAccountable($account);
+            $entities[] = $this->finder()->entity($account->id);
         }
 
         return collect($entities);
-    }
-
-    /**
-     * Recebe os dados de uma conta e retorna o objeto Accountable
-     * responsável pela conta. 
-     *
-     * @param Account $account
-     * @return Accountable
-     */
-    private function toAccountable(Account $account) : mixed
-    {
-        $accountable = app()->make($account->type->name);
-
-        return $accountable->find($account->entityId);
     }
 
     /**

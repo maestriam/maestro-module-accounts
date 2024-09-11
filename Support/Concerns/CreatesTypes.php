@@ -12,7 +12,7 @@ trait CreatesTypes
      *
      * @return TypeCreator
      */
-    private function creator() : TypeCreator
+    public function creator() : TypeCreator
     {
         return app()->make(TypeCreator::class);
     }

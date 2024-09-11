@@ -11,7 +11,7 @@ trait SearchesAccounts
      *
      * @return AccountFinder
      */
-    private function finder() : AccountFinder
+    public function finder() : AccountFinder
     {
         return app()->make(AccountFinder::class);
     }

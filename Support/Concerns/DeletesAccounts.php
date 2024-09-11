@@ -12,7 +12,7 @@ trait DeletesAccounts
      *
      * @return AccountDestroyer
      */
-    private function destroyer() : AccountDestroyer
+    public function destroyer() : AccountDestroyer
     {
         return app()->make(AccountDestroyer::class);
     }

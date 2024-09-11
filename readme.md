@@ -86,7 +86,7 @@ Accounts::type()->isExists('App/Models/User'); // Retorna Collection
 Faz o relacionamento entre dois objetos com trait HasAccount.  
 Os objetos já precisam ter duas contas criadas previamente.  
 ```php
-Accounts::account()->relate($childObjectWithAccount, $parentObjectWithAccount);
+Accounts::relation()->relate($childObjectWithAccount, $parentObjectWithAccount);
 ```
 
 Retorna uma factory de tipos de conta
