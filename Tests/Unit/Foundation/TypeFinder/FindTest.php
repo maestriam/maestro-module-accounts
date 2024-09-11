@@ -4,7 +4,7 @@ namespace Maestro\Accounts\Tests\Unit\Foundation\TypeFinder;
 
 use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
-use Maestro\Accounts\Support\Concerns\RetrivesClassName;
+use Maestro\Accounts\Support\Concerns\RetrievesClassName;
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 use stdClass;
@@ -13,7 +13,7 @@ class FindTest extends TestCase
 {
     use SearchesTypes, 
         CreatesTypes,
-        RetrivesClassName;
+        RetrievesClassName;
 
     public function testFindByAccountable()
     {

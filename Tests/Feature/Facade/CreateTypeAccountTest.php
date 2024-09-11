@@ -5,12 +5,12 @@ namespace Maestro\Accounts\Tests\Feature\Facade;
 use Maestro\Accounts\Entities\Type;
 use Maestro\Accounts\Tests\TestCase;
 use Maestro\Accounts\Support\Accounts;
-use Maestro\Accounts\Support\Concerns\RetrivesClassName;
+use Maestro\Accounts\Support\Concerns\RetrievesClassName;
 use Maestro\Accounts\Tests\Mocks\Entity;
 
 class CreateTypeAccountTest extends TestCase
 {
-    use RetrivesClassName;
+    use RetrievesClassName;
 
     public function testCreateAccount()
     {

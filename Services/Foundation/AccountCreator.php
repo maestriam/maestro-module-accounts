@@ -9,7 +9,7 @@ use Maestro\Accounts\Services\Contracts\AccountCreatorContract;
 use Maestro\Accounts\Support\Concerns\HandlesTypes;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
-class AccountCreator implements AccountCreatorContract
+class AccountCreator
 {    
     use HandlesTypes,
         SearchesAccounts;

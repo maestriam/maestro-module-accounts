@@ -6,11 +6,11 @@ use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Exceptions\TypeNotFoundException;
-use Maestro\Accounts\Support\Concerns\RetrivesClassName;
+use Maestro\Accounts\Support\Concerns\RetrievesClassName;
 
 class TypeFinder
 {    
-    use RetrivesClassName;
+    use RetrievesClassName;
 
     /**
      * Executa uma pesquisa de um tipo de conta através de

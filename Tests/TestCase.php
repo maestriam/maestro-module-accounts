@@ -9,7 +9,9 @@ use Maestro\Accounts\Support\Accounts;
 use Illuminate\Support\Facades\Artisan;
 use Maestro\Accounts\Tests\Mocks\Entity;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Maestro\Accounts\Support\Abstraction\Accountable;
+use Maestro\Accounts\Tests\Mocks\Primary;
+use Maestro\Accounts\Tests\Mocks\Secondary;
 
 class TestCase extends BaseTestCase
 {  
@@ -38,7 +40,7 @@ class TestCase extends BaseTestCase
     }
 
     /**
-     * Executa a criação das tabelas do módulo no banco de dados.
+     * Executa a criação das tabelas do módulo de Accounts no banco de dados.
      *
      * @return void
      */
@@ -48,7 +50,7 @@ class TestCase extends BaseTestCase
     }
 
     /**
-     * Desfaz a criação das tabelas do módulo no banco de dados. 
+     * Desfaz a criação das tabelas do módulo de Accounts no banco de dados. 
      *
      * @return void
      */
@@ -59,24 +61,53 @@ class TestCase extends BaseTestCase
 
     /**
      * Retorna os dados fakes de uma conta para ser utilizado 
-     * em testes 
+     * em testes
      *
-     * @return Factory 
+     * @param Accountable|null $entity
+     * @param string|null $name
+     * @return Account
      */
-    public function makeAccount() : Account
+    public function makeAccount(Accountable $entity = null, string $name = null) : Account
     {
-        return Accounts::factory()->account()->model();
+        return Accounts::factory()->account()->model($entity, $name);
     }
 
     /**
      * Retorna os dados fakes de um tipo de conta para ser utilizado 
-     * em testes 
+     * em testes
      *
-     * @return Type 
+     * @param Accountable|null $entity
+     * @param boolean $auth
+     * @return Type
      */
-    public function makeType() : Type
+    public function makeType(Accountable $entity = null, bool $auth = false) : Type
     {
-        return Accounts::factory()->type()->model();
+        return Accounts::factory()->type()->model($entity, $auth);
+    }
+
+    /**
+     * Retorna uma certa de quantidade objeto fictício para 
+     * realização de testes, seguindo as mesmas regras da função 
+     * makeMock.
+     *
+     * @param integer $quantity
+     * @param boolean $makeAccount
+     * @param string|null $class
+     * @return array
+     */
+    public function populate(
+        int $quantity = 10, 
+        bool $makeAccount = true, 
+        string $class = null
+    ) : array {
+
+        $collection = [];
+
+        for ($i=0; $i < $quantity; $i++) { 
+            $collection[] = $this->makeMock($makeAccount, $class);
+        } 
+
+        return $collection;
     }
 
     /**
@@ -88,15 +119,37 @@ class TestCase extends BaseTestCase
      * @param boolean $makeAccount
      * @return Entity
      */
-    protected function makeMock(bool $makeAccount = true) : Entity
+    public function makeMock(bool $makeAccount = true, string $class = null) : Entity
     {
-        $entity = new Entity();
+        $entity = ($class != null) ? new $class() : new Entity();
 
-        if ($makeAccount) {
-            $name = $this->faker()->userName();
-            Accounts::account()->creator()->create($entity, $name);
-        }
+        if ($makeAccount)
+            $this->makeAccount($entity);        
 
         return $entity;
+    }
+
+    /**
+     * Retorna duas entidades que são relacionadas entre si. 
+     * Caso deseje que retorne apenas as contas vinculadas as entidades,
+     * basta passar $returnAccount como true.
+     *
+     * @param boolean $returnAccount
+     * @return array
+     */
+    public function makeRelation(bool $returnAccount = false) : array
+    {
+        $primary   = new Primary();
+        $secondary = new Secondary();
+
+        $child  = $this->makeAccount($primary);
+        $parent = $this->makeAccount($secondary);
+        
+        Accounts::relation()->relate($secondary, $primary);        
+
+        $response = ($returnAccount == true) ? 
+            [$parent, $child] : [$primary, $secondary];
+
+        return $response;           
     }
 }

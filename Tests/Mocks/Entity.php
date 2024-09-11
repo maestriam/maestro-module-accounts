@@ -8,7 +8,7 @@ class Entity extends Accountable
 {
     use WithFaker;
 
-    private const TOKEN = '73b7d7fa141aa6769ec8bb7ed1';
+    const TOKEN = 'ENTITY-MOCK';
 
     public function __construct()
     {
@@ -25,7 +25,7 @@ class Entity extends Accountable
         return $this->faker()->name();
     }
 
-    public function find()
+    public function find() : self
     {
         return $this;
     }

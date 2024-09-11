@@ -38,6 +38,18 @@ class AccountFinder
     }
 
     /**
+     * Verifica se o parâmetro passado se trata de uma entidade
+     * Account. 
+     *
+     * @param mixed $param
+     * @return boolean
+     */
+    public function isAccount(mixed $param)
+    {
+        return is_a($param, Account::class);
+    }
+
+    /**
      * Verifica se o nome da conta já existe na base de dados
      *
      * @param string $name
@@ -109,7 +121,7 @@ class AccountFinder
     }
 
     /**
-     * Undocumented function
+     * Tenta encontrar um 
      *
      * @param string|object|integer $search
      * @return Account

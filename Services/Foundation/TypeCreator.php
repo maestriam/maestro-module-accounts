@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use maestro\Accounts\Exceptions\TokenNotFoundException;
 use Maestro\Accounts\Exceptions\TypeExistsException;
 use Maestro\Accounts\Support\Abstraction\Accountable;
-use Maestro\Accounts\Support\Concerns\RetrivesClassName;
+use Maestro\Accounts\Support\Concerns\RetrievesClassName;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 
 class TypeCreator
 {
     use SearchesTypes, 
-        RetrivesClassName;
+        RetrievesClassName;
 
     /**
      * Executa a criação de um novo tipo de conta, de acordo com um objeto

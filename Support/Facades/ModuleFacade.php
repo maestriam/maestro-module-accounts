@@ -2,13 +2,16 @@
 
 namespace Maestro\Accounts\Support\Facades;
 
+use Maestro\Accounts\Support\Concerns\AccountRelationship;
 use Maestro\Accounts\Support\Concerns\HandlesTypes;
 use Maestro\Accounts\Support\Concerns\HandlesAccounts;
 use Maestro\Accounts\Support\Facades\FactoryFacade;
 
 class ModuleFacade
 {   
-    use HandlesAccounts, HandlesTypes;
+    use HandlesAccounts, 
+        HandlesTypes,
+        AccountRelationship;
 
     /**
      * Retorna o objeto para criação de dados fictícios de conta

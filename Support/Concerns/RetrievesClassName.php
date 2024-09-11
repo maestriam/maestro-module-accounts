@@ -4,7 +4,7 @@ namespace Maestro\Accounts\Support\Concerns;
 
 use Maestro\Accounts\Support\Abstraction\Accountable;
 
-trait RetrivesClassName
+trait RetrievesClassName
 {
     /**
      * Retorna o nome da entidade que estende da classe Accountable. 

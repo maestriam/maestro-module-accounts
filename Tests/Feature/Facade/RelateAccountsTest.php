@@ -13,7 +13,7 @@ class RelateAccountsTest extends TestCase
         $child  = $this->makeMock();
         $parent = $this->makeMock();
 
-        $response = Accounts::account()->relate($child, $parent);
+        $response = Accounts::relation()->relate($child, $parent);
 
         $this->assertTrue($response);
     }
@@ -23,10 +23,10 @@ class RelateAccountsTest extends TestCase
         $child  = $this->makeMock();
         $parent = $this->makeMock();
 
-        Accounts::account()->relate($child, $parent);
-        Accounts::account()->relate($child, $parent);
+        Accounts::relation()->relate($child, $parent);
+        Accounts::relation()->relate($child, $parent);
                 
-        $relations = Accounts::account()->parents($child->account()->id);
+        $relations = Accounts::relation()->parents($child->account()->id);
 
         $this->assertCount(1, $relations);
     }

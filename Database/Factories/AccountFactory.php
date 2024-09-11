@@ -3,6 +3,7 @@ namespace Maestro\Accounts\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Maestro\Accounts\Entities\Account;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\CreatesAccounts;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
 use Maestro\Accounts\Tests\Mocks\Entity;
@@ -18,9 +19,19 @@ class AccountFactory extends Factory
      */
     protected $model = Account::class;
 
-    public function model() : Account
+    /**
+     * Retorna uma instância de uma conta para a realização de testes. 
+     *
+     * @param Accountable|null $entity
+     * @param string|null $name
+     * @return Account
+     */
+    public function model(Accountable $entity = null, string $name = null) : Account
     {
-        list($entity, $name) = array_values($this->definition());
+        $default = $this->definition();
+
+        $name   = $name ?? $default['name'];
+        $entity = $entity ?? $default['entity'];
         
         return $this->creator()->create($entity, $name);
     }

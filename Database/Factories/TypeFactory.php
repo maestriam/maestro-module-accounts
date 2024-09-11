@@ -3,6 +3,7 @@ namespace Maestro\Accounts\Database\Factories;
 
 use Maestro\Accounts\Entities\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Maestro\Accounts\Support\Abstraction\Accountable;
 use Maestro\Accounts\Support\Concerns\CreatesTypes;
 use Maestro\Accounts\Tests\Mocks\Entity;
 
@@ -23,11 +24,14 @@ class TypeFactory extends Factory
      *
      * @return Type
      */
-    public function model() : Type
+    public function model(Accountable $entity = null, bool $auth = null) : Type
     {
-        list($name, $auth) = array_values($this->definition());
+        $default = $this->definition();
 
-        return $this->creator()->create($name, $auth);
+        $auth   = $auth ?? $default['auth'];
+        $entity = $entity ?? $default['entity'];
+
+        return $this->creator()->create($entity, $auth);
     }
 
     /**

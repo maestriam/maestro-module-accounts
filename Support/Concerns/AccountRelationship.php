@@ -12,7 +12,7 @@ trait AccountRelationship
      *
      * @return RelationHandler
      */
-    private function relation() : RelationHandler
+    public function relation() : RelationHandler
     {
         return app(RelationHandler::class);
     }

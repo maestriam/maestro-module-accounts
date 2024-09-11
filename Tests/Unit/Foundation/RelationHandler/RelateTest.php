@@ -9,13 +9,31 @@ class RelateTest extends TestCase
 {
     use AccountRelationship;
 
-    public function testRelateAccount()
+    public function testSingleRelation()
     {
-        $user1 = $this->makeMock();
-        $user2 = $this->makeMock();
+        $parent = $this->makeMock();
+        $child  = $this->makeMock();
 
-        $response = $this->relation()->relate($user1, $user2);
+        $response = $this->relation()->relate($child, $parent);
+        $collection = $this->relation()->all();
 
         $this->assertTrue($response);
+        $this->assertCount(1, $collection);
+    }
+
+    public function testMultipleRelations()
+    {
+        $parent = $this->makeMock();
+        $counter = 3;
+
+        $children = $this->populate($counter);
+
+        foreach($children as $child) {
+            $this->relation()->relate($child, $parent);
+        }
+
+        $collection = $this->relation()->all();
+
+        $this->assertCount($counter, $collection);
     }
 }

@@ -4,19 +4,15 @@ namespace Maestro\Accounts\Support\Facades;
 
 use Maestro\Accounts\Entities\Account;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Collection as SupportCollection;
-use Maestro\Accounts\Services\Contracts\AccountCreatorContract;
 use Maestro\Accounts\Support\Concerns\CreatesAccounts;
-use Maestro\Accounts\Support\Concerns\AccountRelationship;
 use Maestro\Accounts\Support\Concerns\DeletesAccounts;
 use Maestro\Accounts\Support\Concerns\SearchesAccounts;
 
-class AccountFacade implements AccountCreatorContract
+class AccountFacade
 {
     use CreatesAccounts, 
         SearchesAccounts,
-        DeletesAccounts, 
-        AccountRelationship;
+        DeletesAccounts;
 
     /**
      * {@inheritDoc}
@@ -88,42 +84,5 @@ class AccountFacade implements AccountCreatorContract
     public function belongsTo(?object $entity, string $name) : bool
     {
         return $this->finder()->belongsTo($entity, $name);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function relate($child, $parent) : bool
-    {
-        return $this->relation()->relate($child, $parent);
-    }
-
-    public function unrelate(object $child, object $parent): bool
-    {
-        return $this->relation()->unrelate($child, $parent);
-    }
-
-    /**
-     * {@inheritDoc}
-     */    
-    public function parents(int $child) : SupportCollection
-    {
-        return $this->relation()->parents($child);
-    }
-
-    /**
-     * {@inheritDoc}
-     */    
-    public function children(int $child) : SupportCollection
-    {
-        return $this->relation()->children($child);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public function entity(Account|int $account) : mixed
-    {
-        return $this->relation()->entity($account);
     }        
 }

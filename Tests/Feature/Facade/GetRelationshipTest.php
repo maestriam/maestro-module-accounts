@@ -17,7 +17,9 @@ class GetRelationshipTest extends TestCase
     {        
         list($parent, $child) = $this->createRelationship();
 
-        $collection = Accounts::account()->parents($child->account()->id);
+        $id = $child->account()->id;
+
+        $collection = Accounts::relation()->parents($id);
 
         $parent = $collection->first();
         
@@ -32,7 +34,7 @@ class GetRelationshipTest extends TestCase
         Accounts::account()->creator()->create($child, 'my.f4ke-user');
         Accounts::account()->creator()->create($parent, 'my.comp4ny-user');
 
-        Accounts::account()->relate($child, $parent);
+        Accounts::relation()->relate($child, $parent);
 
         return [ $parent, $child ];
     }

@@ -2,14 +2,14 @@
 
 namespace Maestro\Accounts\Tests\Unit\Foundation\TypeFinder;
 
-use Maestro\Accounts\Support\Concerns\RetrivesClassName;
+use Maestro\Accounts\Support\Concerns\RetrievesClassName;
 use Maestro\Accounts\Support\Concerns\SearchesTypes;
 use Maestro\Accounts\Tests\TestCase;
 
 class ExistsTest extends TestCase
 {
     use SearchesTypes,
-        RetrivesClassName;
+        RetrievesClassName;
 
     public function testExistsUsingAccountable()
     {
