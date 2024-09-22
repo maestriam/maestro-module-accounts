@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Maestriam\Maestro\Foundation\Registers\FileRegister;
+use Maestro\Accounts\Console\InstallCommand;
 use Maestro\Accounts\Http\Rules\UniqueAccount;
 use Maestro\Accounts\Support\Facades\ModuleFacade;
 use Maestro\Accounts\Views\Components\AccountForm;
@@ -37,6 +38,7 @@ class AccountsServiceProvider extends ServiceProvider
         $this->registerSeeds();
         $this->registerFacade();
         $this->registerRules();
+        $this->registerCommands();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
@@ -51,9 +53,23 @@ class AccountsServiceProvider extends ServiceProvider
         $this->app->register(FoundationServiceProvider::class);
     }
 
+    /**
+     * Registra os componentes Livewires do módulo.
+     *
+     * @return void
+     */
     public function registerComponents()
     {
         Livewire::component('accounts.account-form', AccountForm::class);            
+    }
+
+    public function registerCommands() : self
+    {
+        $this->commands([
+            InstallCommand::class
+        ]);
+
+        return $this;
     }
 
     /**
