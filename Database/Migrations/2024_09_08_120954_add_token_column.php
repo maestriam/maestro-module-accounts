@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('account_types', function (Blueprint $table) {
-            $table->addColumn('string', 'token')->default('');
+            $table->string('token')->default(" ");
         });
     }
 
