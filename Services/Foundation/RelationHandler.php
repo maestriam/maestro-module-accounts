@@ -82,7 +82,7 @@ class RelationHandler
         if ($token) $clause['token'] = $token;
 
         return Account::join('account_relations as R', 'accounts.id', '=', $target)
-                      ->join('account_types as T', 't.id', '=', 'accounts.type_id')
+                      ->join('account_types as T', 'T.id', '=', 'accounts.type_id')
                       ->where($clause)
                       ->get(['accounts.*']);
     }

@@ -91,8 +91,8 @@ class AccountFinder
     {
         $type = $typename ?? get_class($entity);        
         
-        $collection = Account::join('account_types as t', 't.id', '=', 'accounts.type_id')
-                             ->where('t.name', $type)
+        $collection = Account::join('account_types as T', 'T.id', '=', 'accounts.type_id')
+                             ->where('T.name', $type)
                              ->where('entity_id', $entity->id)
                              ->with('type')
                              ->get(['accounts.*']); 
