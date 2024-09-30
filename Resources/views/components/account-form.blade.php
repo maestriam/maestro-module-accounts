@@ -4,7 +4,8 @@
         <x-form-group :cols="6">
             <x-input 
                 :name="'account'" 
-                :model="'account'" 
+                :model="'account'"
+                :live="true"
                 :id="'account-input-id'"
                 :class="$this->getErrorStyleInput()"
                 :label="'Nome da conta'" 
