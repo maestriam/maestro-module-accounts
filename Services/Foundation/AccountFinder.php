@@ -70,12 +70,33 @@ class AccountFinder
     /**
      * Verifica se o nome da conta já existe na base de dados
      *
+     * @deprecated version
      * @param string $name
      * @return boolean
      */
     public function isExists(string $name) : bool
     {
         return $this->find($name) == null ? false : true;
+    }
+
+    /**
+     * Verifica se o nome da conta já existe na base de dados.
+     * É possível passar o token do tipo de conta responsável.
+     * Se a conta existir e for de um determinado tipo específico, 
+     * deve retornar true.  
+     *
+     * @param string $name
+     * @return boolean
+     */
+    public function exists(string $name, string $token = null) : bool
+    {
+        $found = $this->find($name);
+        
+        if ($found == null) return false; 
+
+        if ($token == null) return true;
+
+        return ($found->type->token == $token) ? true : false;
     }
 
     /**
